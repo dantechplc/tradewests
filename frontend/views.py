@@ -47,3 +47,17 @@ def ContactView(request):
         'navbar':'contact'
     }
     return render(request, 'frontend/contact.html', context)
+
+
+
+def error_404_view(request, exception):
+    return render(request, 'frontend/404.html')
+
+
+def error_500_view(request):
+    return render(request, 'frontend/500.html')
+
+
+def error_403_view(request, exception=None):
+    return render(request, 'frontend/403.html',status=403)
+
