@@ -189,3 +189,4 @@ cython_debug/
 #.idea/
 
 !/static/dsh/assets/css/lib/
+*.sock
