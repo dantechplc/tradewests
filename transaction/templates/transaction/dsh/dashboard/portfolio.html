@@ -1,0 +1,202 @@
+{% extends 'transaction/dsh/base.html' %}
+{% block title %}Tradewests | Portfolio{% endblock %}
+{% load static %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <!-- ===== Portfolio Summary ===== -->
+            <div class="d-flex gap-3 mb-4 flex-wrap">
+                <div class="flex-fill" style="min-width: 150px;">
+                    <div class="card text-center shadow-sm border-0 rounded-3 h-100">
+                        <div class="card-body">
+                            <div class="mb-2 text-primary">
+                                <i class="ri-wallet-3-line" style="font-size: 2rem;"></i>
+                            </div>
+                            <h6 class="text-muted">Total Invested</h6>
+                            <h4 class="fw-bold text-primary">{{ total_invested }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-fill" style="min-width: 150px;">
+                    <div class="card text-center shadow-sm border-0 rounded-3 h-100">
+                        <div class="card-body">
+                            <div class="mb-2 text-success">
+                                <i class="ri-funds-fill" style="font-size: 2rem;"></i>
+                            </div>
+                            <h6 class="text-muted">Total Earnings</h6>
+                            <h4 class="fw-bold text-success">{{ total_earnings }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-fill" style="min-width: 150px;">
+                    <div class="card text-center shadow-sm border-0 rounded-3 h-100">
+                        <div class="card-body">
+                            <div class="mb-2 text-warning">
+                                <i class="ri-stack-line" style="font-size: 2rem;"></i>
+                            </div>
+                            <h6 class="text-muted">Active Plans</h6>
+                            <h4 class="fw-bold text-warning">{{ total_plans }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== Earnings Bar Chart ===== -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-body">
+                            <h5 class="mb-3 fw-semibold">Earnings by Plan</h5>
+                            <div class="chart-container" style="position: relative; min-height: 150px">
+                                <canvas id="earningsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== Active Investments ===== -->
+            <div class="row">
+                {% for inv in investments %}
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="card shadow-sm border-0 rounded-3 h-100 hover-shadow">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+                                    <h5 class="card-title mb-0">{{ inv.plan }}</h5>
+                                    <span class="badge rounded-pill {% if inv.status == 'Active' %} bg-success {% elif inv.status == 'On Hold' %} bg-warning {% else %} bg-secondary {% endif %}">
+                                        {{ inv.status }}
+                                    </span>
+                                </div>
+                                <p class="mb-1">
+                                    <strong>Invested:</strong> {{ inv.amount }}
+                                </p>
+                                <p class="mb-1">
+                                    <strong>Earned:</strong> {{ inv.earned }}
+                                </p>
+                                <p class="mb-1">
+                                    <strong>Expected ROI:</strong> {{ inv.expected_roi }}
+                                </p>
+                                <div class="progress mt-3"
+                                     style="height: 12px;
+                                            border-radius: 10px;
+                                            overflow: hidden">
+                                    <div class="progress-bar {% if inv.progress < 40 %} bg-danger {% elif inv.progress < 80 %} bg-warning {% else %} bg-success {% endif %}"
+                                         role="progressbar"
+                                         style="width: {{ inv.progress }}%">{{ inv.progress }}%</div>
+                                </div>
+                                <small class="text-muted d-block mt-1">Progress towards ROI</small>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info text-center shadow-sm">No active investments found.</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+  const totalPlans = {{ total_plans|default:0 }};
+  const labels = {{ labels|safe }};
+  const earnings = {{ earnings|safe }};
+  const colors = {{ colors|safe }};
+  const expectedRoi = {{ expected_roi|safe }};  // <-- pass this list from your view
+
+  const chartCanvas = document.getElementById('earningsChart');
+  const ctx = chartCanvas.getContext('2d');
+
+  // Ensure the canvas has height
+  if (totalPlans <= 1) {
+    chartCanvas.parentElement.style.height = "250px";
+  } else {
+    chartCanvas.parentElement.style.height = (150 + (totalPlans * 40)) + "px";
+  }
+
+  let chartConfig;
+
+  if (totalPlans === 1 && earnings.length > 0 && expectedRoi.length > 0) {
+    // ===== Doughnut Chart for 1 Plan =====
+    const earned = earnings[0] || 0;
+    const roi = expectedRoi[0] || 0;
+    const remaining = Math.max(roi - earned, 0);
+
+    chartConfig = {
+      type: 'doughnut',
+      data: {
+        labels: ['Earned', 'Remaining ROI'],
+        datasets: [{
+          data: [earned, remaining],
+          backgroundColor: ['#4CAF50', '#E0E0E0'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { usePointStyle: true }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.label + ': $' + context.parsed.toLocaleString();
+              }
+            }
+          }
+        }
+      }
+    };
+
+  } else if (totalPlans > 1) {
+    // ===== Bar Chart for Multiple Plans =====
+    chartConfig = {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Amount Earned ($)',
+          data: earnings,
+          backgroundColor: colors,
+          borderRadius: 8,
+          barThickness: 'flex'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return '$' + context.parsed.y.toLocaleString();
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            suggestedMax: Math.max(...earnings) * 1.5 || 10,
+            ticks: { callback: value => '$' + value }
+          }
+        }
+      }
+    };
+  }
+
+  if (chartConfig) {
+    new Chart(ctx, chartConfig);
+  }
+    </script>
+    <style>
+  .hover-shadow:hover {
+    transform: translateY(-3px);
+    transition: 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+    </style>
+{% endblock %}

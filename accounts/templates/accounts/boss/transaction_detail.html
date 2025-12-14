@@ -1,0 +1,141 @@
+{% extends "accounts/boss/base.html" %}
+{% block title %}CTG ADMIN - Transaction Details{% endblock %}
+{% load static %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                    <h4>
+                        <i class="bi bi-receipt"></i> Transaction Details
+                    </h4>
+                    <a href="{% url 'boss:transactions' %}" class="btn btn-light btn-sm">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <!-- Left Column: Transaction Info -->
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <i class="bi bi-person-circle me-2"></i><strong>User:</strong> {{ transaction.user.first_name }}
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-cash-stack me-2"></i><strong>Transaction Type:</strong> {{ transaction.transaction_type }}
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-currency-dollar me-2"></i><strong>Amount:</strong> {{ transaction.amount }}
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-info-circle me-2"></i><strong>Status:</strong>
+                                    {% if transaction.status == "pending" %}
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    {% elif transaction.status == "Successful" %}
+                                        <span class="badge bg-success">Successful</span>
+                                    {% elif transaction.status == "failed" %}
+                                        <span class="badge bg-danger">Failed</span>
+                                    {% endif %}
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-calendar-event me-2"></i><strong>Date:</strong> {{ transaction.date|date:"d M Y H:i" }}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Right Column: Receipt Preview -->
+                        <div class="col-md-6 text-center">
+                            <p>
+                                <strong><i class="bi bi-file-earmark-text me-1"></i>Receipt:</strong>
+                            </p>
+                            <div class="receipt-container border rounded shadow-sm p-2"
+                                 style="max-height: 400px;
+                                        overflow:auto">
+                                {% if transaction.receipt_upload %}
+                                    {% if transaction.receipt_upload.url|slice:"-4:" == ".pdf" %}
+                                        <a href="{{ transaction.receipt_upload.url }}"
+                                           target="_blank"
+                                           class="btn btn-outline-primary w-100 mb-2">
+                                            <i class="bi bi-file-earmark-pdf"></i> View PDF
+                                        </a>
+                                    {% else %}
+                                        <img src="{{ transaction.receipt_upload.url }}"
+                                             alt="Receipt"
+                                             class="img-fluid rounded">
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-muted">No receipt uploaded</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <form method="post"
+                          class="mt-4 d-flex flex-column flex-md-row justify-content-center gap-2 text-center">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" id="actionField">
+                        {% if transaction.status == "pending" %}
+                            <button type="button"
+                                    class="btn btn-success mr-3"
+                                    onclick="submitAction('confirm')">
+                                <i class="bi bi-check-circle"></i> Confirm
+                            </button>
+                            <button type="button"
+                                    class="btn btn-warning  mr-3"
+                                    onclick="submitAction('decline')">
+                                <i class="bi bi-x-circle"></i> Decline
+                            </button>
+                        {% endif %}
+                        <button type="button"
+                                class="btn btn-danger  mr-3"
+                                onclick="submitAction('delete')">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+function submitAction(action) {
+  let text = "";
+  let color = "";
+
+  if(action === "confirm") {
+    text = "This transaction will be confirmed.";
+    color = "#198754"; // green
+  } else if(action === "decline") {
+    text = "This transaction will be declined.";
+    color = "#ffc107"; // yellow
+  } else if(action === "delete") {
+    text = "This transaction will be permanently deleted!";
+    color = "#dc3545"; // red
+  }
+
+  Swal.fire({
+    title: "Are you sure?",
+    text: text,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: color,
+    cancelButtonColor: "#6c757d",
+    confirmButtonText: "Yes, proceed"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById("actionField").value = action;
+      document.querySelector("form").submit();
+    }
+  });
+}
+    </script>
+    <style>
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .receipt-container img {
+    max-height: 300px;
+    object-fit: contain;
+  }
+}
+    </style>
+{% endblock %}

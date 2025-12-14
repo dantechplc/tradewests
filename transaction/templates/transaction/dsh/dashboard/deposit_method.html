@@ -1,0 +1,27 @@
+{% extends 'transaction/dsh/base.html' %}
+{% block title %}Tradewests | DEPOSIT{% endblock %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Fund your Account</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <p>Select your preferred method of payment</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">{{ form.payment_method }}</div>
+                                <button type="submit" class="btn btn-primary">Proceed</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

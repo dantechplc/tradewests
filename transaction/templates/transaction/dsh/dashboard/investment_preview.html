@@ -1,0 +1,209 @@
+{% extends 'transaction/dsh/base.html' %}
+{% block title %} Tradewests| Invest{% endblock %}
+{% load static %}
+{% block content %}
+    <script>
+    function myFunction() {
+    var usd = $('#usd').val() ;
+    var xch = "1";
+    var exch = usd/xch;
+    var rate = "Percentage";
+    var cycle = "{{investment.period_in_days}}";
+
+    if(rate == "Percentage"){
+     var profit1 = {{investment.daily_rate}}*usd/100;
+     var profit2 = profit1*cycle;
+     var profit = profit2;
+     var daily = {{investment.daily_rate}}*usd/100;
+     var monthly = profit1*{{investment.period_in_days}};
+     var total = Number(usd) + Number(monthly);
+
+
+    }
+
+    document.getElementById("totalret").innerHTML=total.toFixed(2);
+    document.getElementById("amount").innerHTML = usd;
+
+    document.getElementById("daily").innerHTML = daily.toFixed(2);
+    document.getElementById("monthly").innerHTML = monthly.toFixed(2);
+
+
+    };
+    </script>
+    <!-- Page Content  -->
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12">
+                    <div class="iq-card iq-card-block iq-card-stretch iq-card-height bg-primary rounded">
+                        <div class="iq-card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="icon iq-icon-box rounded iq-bg-primary rounded shadow"
+                                     data-wow-delay="0.2s">
+                                    <i class="ri-money-dollar-circle-line"></i>
+                                </div>
+                                <div class="iq-text">
+                                    <h6 class="text-white">Available Balance</h6>
+                                    <h3 class="text-white">{{ request.user.client.account.main_balance }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12">
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <div>
+                                    <img src="{{ investment.image.url }}" width="100">
+                                    <h4 class="">{{investment.name}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <p>Kindly fill out the form</p>
+                            <form method='post'>
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="number"
+                                           value="{{ investment.id }}"
+                                           hidden
+                                           name="investment_name">
+                                    <label for="amount">Amount:</label>
+                                    {% for err in form.amount.errors %}
+                                        <h6 class="text-danger ml-2">{{ err }}</h6>
+                                        <br>
+                                    {% endfor %}
+                                    <input required
+                                           type="number"
+                                           class="form-control form-control-lg form-control-number"
+                                           name="amount_0"
+                                           placeholder=" 0.00"
+                                           id="usd"
+                                           onkeyup="myFunction()">
+                                    <select name="amount_1" hidden="" id="id_amount_1" required="">
+                                        <option value="USD">USD</option>
+                                    </select>
+                                     <div class="text-danger form-note pt-2">
+                                        <b>Note: Minimum  {{ investment.min_amount }} </b>
+                                    </div>
+                                </div>
+                                <input name="status" hidden="" value="Active">
+                                <input name="min_amount"
+                                       hidden=""
+                                       value="{{ investment.min_amount.amount }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="iq-card">
+                            <div class="iq-card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img style="width:200px;
+                                                    height:50px"
+                                             src="{{company.logo.url}}"
+                                             class="img-fluid avatar-100"
+                                             alt="">
+                                    </div>
+                                    <div class="col-lg-6 align-self-center">
+                                        <h4 class="mb-0 float-right">Payment Summary</h4>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <hr class="mt-3">
+                                        <h5 class="mb-0">Hello, {{ request.user.username }}</h5>
+                                        <p>Payment Summary</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Duration</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ time|date }}</td>
+                                                        <td>
+                                                            <span class="badge badge-danger">Unpaid</span>
+                                                        </td>
+                                                        <td id="amount"></td>
+                                                        <td>{{ investment.duration }} </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h5>Payment Summary</h5>
+                                        <div class="table-responsive-sm">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Investment</th>
+                                                        <th class="text-center" scope="col">
+                                                            Rate <span class="badge badge-primary">%</span>
+                                                        </th>
+                                                        <th class="text-center" scope="col">
+                                                            Daily Income <span class="badge badge-primary">USD</span>
+                                                        </th>
+                                                        <th class="text-center" scope="col">
+                                                            Expected ROI  <span class="badge badge-primary">USD</span>
+                                                        </th>
+                                                        <th class="text-center" scope="col">
+                                                            Total Return <span class="badge badge-primary">USD</span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <h6 class="mb-0">{{ investment.name }} plan</h6>
+                                                        </td>
+                                                        <td id="rate" class="text-center">{{ investment.roi_rate }}</td>
+                                                        <td id="daily" class="text-center"></td>
+                                                        <td id="monthly" class="text-center"></td>
+                                                        <td id="totalret" class="text-center">
+                                                            <b></b>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9 text-left">
+                                        <div class="col-sm-12 mt-5">
+                                            <b class="text-danger">Notes:</b>
+                                            <p>
+                                                <span style="color:red;">*</span> Upon successfully payment, you will receive your daily(i.e. Monday - Friday) profit directly to your ROI USD account.
+                                            </p>
+                                            <p>
+                                                <span style="color:red;">*</span> You can always upgrade or top up your investment.
+                                            </p>
+                                            <p>
+                                                <span style="color:red;">*</span> You can always reach out to the support team or your account manager for ease of the processes.
+                                            </p>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Pay now</button>
+                                        <a href="{% url 'transaction:new-investment' %}">
+                                            <button type="button" class="btn btn-danger">Cancel</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Tradewests | Investment Plans {% endblock %}
+{% block content %}
+
+
+<!--Page Title-->
+    <section class="page-title">
+        <div class="auto-container">
+            <h1>Investment Plans</h1>
+        </div>
+    </section>
+
+    <!--Page Info-->
+    <section class="page-info">
+        <div class="auto-container clearfix">
+            <div class="pull-left">
+            	<ul class="bread-crumb clearfix">
+                    <li><a href="index.html">Home</a></li>
+                    <li>Plans</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+    <!--End Page Info-->
+    <section style="background:#0d1b2a; color:#f0f0f0; padding:40px 20px; border-radius:8px; max-width:900px; margin:0 auto;">
+  <div style="text-align:center; max-width:760px; margin:0 auto;">
+    <h3 style="color:#ffffff; font-size:24px; margin-bottom:12px;">Investment Plans for Everyone</h3>
+    <p style="color:#dcdcdc; font-size:15px; line-height:1.6; margin-bottom:18px;">
+      At Tradewests, our plans suit all investors — beginners, growing earners, and seasoned professionals.
+      Each option offers flexible tiers, clear ROI structures, and strategies that match your goals and risk level.
+      Choose fast returns with Day Trading, steady growth via Standard plans, or long-term wealth through Real Estate.
+      Investing with Tradewests is simple, accessible, and tailored to you.
+    </p>
+
+  </div>
+</section><br><br>
+
+
+  <!-- pricing -->
+
+<!-- pricing -->
+<section class="pricing-section sp-one" style="background:#0d1b2a; color:white; padding:80px 0;">
+    <div class="auto-container">
+
+        <div class="sec-title light centered">
+            <h2>Investment Plans</h2>
+        </div>
+
+        <!-- 🔥 DYNAMIC TOGGLES -->
+        <div style="text-align:center; margin-bottom:40px;">
+            {% for category in categories %}
+            <button class="plan-toggle {% if forloop.first %}active{% endif %}"
+                    data-plan="cat-{{ category.id }}"
+                    style="background:{% if forloop.first %}#471396{% else %}#1b2a3a{% endif %};
+                           color:white; border:none; padding:12px 25px; margin:5px;
+                           border-radius:25px; cursor:pointer; font-weight:bold;">
+                {{ category.name }}
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- 🔥 PLANS CONTAINER -->
+        <div class="plans-container">
+
+            {% for category in categories %}
+            <div class="plan-group {% if forloop.first %}active{% endif %}" id="cat-{{ category.id }}">
+                <div class="plan-wrapper">
+                    {% for investment in investments %}
+                        {% if investment.category_id == category.id %}
+                        <div class="plan-card {% if investment.is_promo %}promo{% endif %}">
+
+                            {% if investment.is_promo %}
+                            <div class="promo-ribbon">🔥 Promo</div>
+                            {% endif %}
+
+                            {% if investment.image %}
+                            <div class="icon">
+                                <img src="{{ investment.image.url }}" alt="{{ investment.name }}" style="width:50px;height:50px;object-fit:contain;">
+                            </div>
+                            {% endif %}
+
+                            <h3 class="plan-title">{{ investment.name }}</h3>
+
+                            <ul class="benefits">
+
+                                {% for benefit in investment.benefits.all %}
+                                    <li class="font-weight-bold">{{ benefit.name }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <a href="{% url 'accounts:login' %}" class="invest-btn">Invest Now</a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+<style>
+.plan-group { display: none; }
+.plan-group.active { display: block; }
+
+.plan-wrapper {
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:center;
+}
+
+.plan-card {
+    flex:1 1 250px;
+    background:#1b2a3a;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    position:relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.plan-card.promo {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    border: 2px solid #fff;
+}
+
+.promo-ribbon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #fff;
+    color: #ff416c;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    transform: rotate(20deg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.plan-title { color:white; font-size:20px; margin-bottom:12px; }
+
+.icon { font-size:45px; margin-bottom:10px; }
+
+.benefits {
+    list-style:none;
+    padding:0;
+    margin:0 0 20px 0;
+    text-align:left;
+    color:#f0f0f0;
+    line-height:1.6;
+}
+.benefits li { margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+.benefits li::before { content:"✔"; color:#471396; font-size:14px; }
+
+.invest-btn {
+    display:block;
+    width:100%;
+    padding:12px;
+    background:#471396;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:25px;
+    text-align:center;
+    transition: all 0.3s;
+}
+.invest-btn:hover {
+    background:#5a2dc8;
+}
+
+@media(max-width:600px) {
+    .invest-btn { font-size:14px; padding:14px; }
+    .plan-card { flex:1 1 100%; }
+}
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const toggles = document.querySelectorAll(".plan-toggle");
+    const planGroups = document.querySelectorAll(".plan-group");
+
+    toggles.forEach(btn => {
+        btn.addEventListener("click", function () {
+
+            toggles.forEach(b => {
+                b.classList.remove("active");
+                b.style.background = "#1b2a3a";
+            });
+
+            planGroups.forEach(group => {
+                group.classList.remove("active");
+            });
+
+            this.classList.add("active");
+            this.style.background = "#471396";
+
+            const target = this.dataset.plan;
+            document.getElementById(target).classList.add("active");
+        });
+    });
+
+});
+</script>
+
+
+{% endblock %}

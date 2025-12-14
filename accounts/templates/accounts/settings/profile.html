@@ -1,0 +1,138 @@
+{% extends 'transaction/dsh/base.html' %}
+{% block title %}ZENTROBANK | Account Profile{% endblock %}
+{% block content %}
+    <!-- Page Content  -->
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div>
+                {% if form.errors %}
+                    <small class="text-danger ml-2">{{ form.errors }}</small>
+                    <br>
+                {% endif %}
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="col-lg-12 alert alert-primary alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true" style="color:black">&times;</span>
+                        </button>
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="iq-card">
+                        <div class="iq-card-body p-0">
+                            <div class="iq-edit-list">
+                                <ul class="iq-edit-profile d-flex nav nav-pills">
+                                    <li class="col-md-6 p-0">
+                                        <a class="nav-link active"  href="{% url 'accounts:account_profile' %}">Account Profile</a>
+                                    </li>
+                                    <li class="col-md-6 p-0">
+                                        <a class="nav-link"  href="{% url 'accounts:change_password' %}">Change Password</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="iq-edit-list-data">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show"
+                                 id="personal-information"
+                                 role="tabpanel">
+                                <div class="iq-card">
+                                    <div class="iq-card-header d-flex justify-content-between">
+                                        <div class="iq-header-title">
+                                            <h4 class="card-title">Account Details</h4>
+                                        </div>
+                                    </div>
+                                    <div class="iq-card-body">
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class=" row align-items-center">
+                                                <div class="col-md-12">
+                                                    <div class="profile-img-edit">
+                                                        <img id="image-preview"
+                                                             class="profile-pic"
+                                                             src="{{ request.user.client.profile_pic.url }}"
+                                                             alt="profile-pic">
+                                                        <div class="p-image">
+                                                            <i class="ri-pencil-line upload-button"></i>
+                                                            <input onchange="previewImage()"
+                                                                   id="file-upload"
+                                                                   name="profile_pic"
+                                                                   class="file-upload"
+                                                                   type="file"
+                                                                   accept="image/*">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label for="lname">Email:</label>
+                                                    <input readonly  class="form-control" value="{{ request.user }}">
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label for="lname">Name:</label>
+                                                    <input readonly  class="form-control"  value="{{ request.user.username }}">
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label for="lname">Country:</label>
+                                                    <input readonly
+                                                           type="text"
+                                                           class="form-control"
+                                                           value="{{ request.user.client.country.name }}">
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label for="lname">Date Joined:</label>
+                                                    <input readonly
+                                                           class="form-control"
+                                                           id="lname"
+                                                           value="{{ request.user.date_joined|date }}">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Wrapper END -->
+<script>
+    // Function to trigger file input click
+    document.querySelector('.upload-button').onclick = function() {
+        document.getElementById('file-upload').click();
+    };
+
+    // Function to preview the selected image
+    function previewImage() {
+        const fileInput = document.getElementById('file-upload');
+        const imagePreview = document.getElementById('image-preview');
+
+        // Check if a file is selected
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+
+            // Load the image and set the src of the img element
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result; // Set the image source to the uploaded file
+                imagePreview.style.display = 'block'; // Show the image
+            };
+
+            reader.readAsDataURL(fileInput.files[0]); // Read the file as a data URL
+        } else {
+            imagePreview.src = ''; // Clear the image preview if no file is selected
+            imagePreview.style.display = 'none'; // Hide the image
+        }
+    }
+</script>
+{% endblock content %}

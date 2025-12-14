@@ -1,0 +1,26 @@
+
+TRANSACTION_TYPE_CHOICES = (
+    ("DEPOSIT", 'Deposit'),
+    ("WITHDRAWAL", 'Withdrawal'),
+    # ("TRANSFER", 'Transfer'),
+    # ("REFUND", 'Refund'),
+    ("WITHDRAW", 'WITHDRAW'),
+    # ("EXCHANGE", 'Exchange'),
+    # ("CARD FUNDING", 'CARD FUNDING'),
+    # ("CARD WITHDRAWAL", 'CARD WITHDRAWAL'),
+    # ("Card Delivery Fee", 'Card Delivery Fee'),
+    ("INVESTMENT",'INVESTMENT'),
+    ("ROI",'ROI'),
+
+)
+
+
+status = (
+    ('pending', 'pending'),
+    # ('Awaiting Approval', 'Awaiting Approval'),
+    ('Successful', 'Successful'),
+    # ('Received', 'Received'),
+    ('failed', 'failed'),
+    # ('In Progress', 'In Progress'),
+    # ('Declined', 'Declined')
+)

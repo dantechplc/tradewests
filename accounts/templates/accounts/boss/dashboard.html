@@ -1,0 +1,326 @@
+{% extends "accounts/boss/base.html" %}
+{% block title %}CTG Admin-Dashboard{% endblock %}
+{% load static %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <!-- Dashboard Metrics -->
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <a href="{% url 'boss:clients' %}">
+                        <div class="card bg-primary text-white shadow rounded-lg h-100">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div class="icon">
+                                    <i class="las la-users fa-2x"></i>
+                                </div>
+                                <div class="text-right">
+                                    <h6 class="text-white">Total Clients</h6>
+                                    <h3 class="text-white">{{ total_clients }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <a href="{% url 'boss:transactions' %}">
+                        <div class="card bg-warning text-white shadow rounded-lg h-100">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div class="icon">
+                                    <i class="ri-money-dollar-circle-line fa-2x"></i>
+                                </div>
+                                <div class="text-right">
+                                    <h6>Pending Withdrawals</h6>
+                                    <h3>{{ pending_withdrawals_total }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <a href="{% url 'boss:transactions' %}">
+                        <div class="card bg-warning text-white shadow rounded-lg h-100">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div class="icon">
+                                    <i class="ri-money-dollar-circle-fill fa-2x"></i>
+                                </div>
+                                <div class="text-right">
+                                    <h6>Pending Deposits</h6>
+                                    <h3>{{ pending_deposits_total }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- KYC Status -->
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow rounded-lg h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="iq-card-icon bg-primary text-white p-3 rounded mr-3">
+                                <i class="ri-user-follow-fill"></i>
+                            </div>
+                            <div>
+                                <h4>{{ kyc_completed }}</h4>
+                                <p class="mb-0">KYC Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow rounded-lg h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="iq-card-icon bg-warning text-white p-3 rounded mr-3">
+                                <i class="ri-user-2-line"></i>
+                            </div>
+                            <div>
+                                <h4>{{ kyc_under_review }}</h4>
+                                <p class="mb-0">KYC Under Review</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow rounded-lg h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="iq-card-icon bg-danger text-white p-3 rounded mr-3">
+                                <i class="ri-user-unfollow-line"></i>
+                            </div>
+                            <div>
+                                <h4>{{ kyc_unverified }}</h4>
+                                <p class="mb-0">Unverified</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Withdrawals -->
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow rounded-lg h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Recent Withdrawals</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                {% for w in recent_withdrawals %}
+                                    <li class="d-flex justify-content-between align-items-center mb-3 open-modal"
+                                        data-type="transaction"
+                                        data-user="{{ w.user }}"
+                                        data-amount="{{ w.amount }}"
+                                        data-status="{{ w.status }}"
+                                        data-date="{{ w.date|date:'d M Y' }}"
+                                        data-transaction="{{ w.transaction_type }}"
+                                        data-transaction_id="{{ w.trx_id }}"
+                                        data-link="{% url 'boss:transaction_detail' w.id %}">
+                                        <div>
+                                            <strong>{{ w.user }}</strong>
+                                            <br>
+                                            {% if w.status == 'Successful' %}
+                                                <small class="text-muted badge badge-success">{{ w.status }}</small>
+                                            {% elif w.status == 'pending' %}
+                                                <small class="text-muted badge badge-warning">{{ w.status }}</small>
+                                            {% elif w.status == 'failed' %}
+                                                <small class="text-white badge badge-danger">{{ w.status }}</small>
+                                            {% endif %}
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="font-weight-bold">{{ w.amount }}</span>
+                                            <br>
+                                            <small>{{ w.date|date:"d M Y" }}</small>
+                                        </div>
+                                    </li>
+                                {% empty %}
+                                    <li>No recent withdrawals</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Recent Payments -->
+                <div class="col-md-8 mb-4">
+                    <div class="card shadow rounded-lg h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Payment History</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                {% for p in recent_payments %}
+                                    <li class="d-flex justify-content-between align-items-center mb-3 open-modal"
+                                        data-type="transaction"
+                                        data-user="{{ p.user.first_name }}"
+                                        data-amount="{{ p.amount }}"
+                                        data-status="{{ p.status }}"
+                                        data-date="{{ p.date|date:'d M Y' }}"
+                                        data-transaction="{{ p.transaction_type }}"
+                                        data-transaction_id="{{ p.trx_id }}"
+                                        data-link="{% url 'boss:transaction_detail' p.id %}">
+                                        <div>
+                                            <strong>{{ p.transaction_type }} from {{ p.user.first_name }}</strong>
+                                            <br>
+                                            <small class="text-muted">{{ p.date|date:"d M Y" }}</small>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-info">{{ p.amount }}</span>
+                                            <br>
+                                            {% if p.status == 'Successful' %}
+                                                <small class="text-muted badge badge-success">{{ p.status }}</small>
+                                            {% elif p.status == 'pending' %}
+                                                <small class="text-muted badge badge-warning">{{ p.status }}</small>
+                                            {% elif p.status == 'failed' %}
+                                                <small class="text-white badge badge-danger">{{ p.status }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% empty %}
+                                    <li>No recent payments</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Clients -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card shadow rounded-lg">
+                        <div class="card-header">
+                            <h5 class="mb-0">Recent Clients</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Profile</th>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Date Joined</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for c in recent_clients %}
+                                            <tr class="open-modal"
+                                                data-type="client"
+                                                data-name="{{ c.user.username }}"
+                                                data-email="{{ c.user.email }}"
+                                                data-date="{{ c.user.date_joined|date:'d M Y' }}"
+                                                data-status="{{ c.Verification_status }}"
+                                                data-profile="{{ c.profile_pic.url|default:'https://via.placeholder.com/40' }}"
+                                                data-link="{% url 'boss:client_profile' c.id %}">
+                                                <td>
+                                                    <img width="40"
+                                                         src="{{ c.profile_pic.url|default:'https://via.placeholder.com/40' }}"
+                                                         class="rounded-circle">
+                                                </td>
+                                                <td>{{ c.user.email }}</td>
+                                                <td>{{ c.user.username }}</td>
+                                                <td>{{ c.user.date_joined|date:"d M Y" }}</td>
+                                                <td>
+                                                    {% if c.Verification_status == "Verified" %}
+                                                        <span class="badge badge-success">Verified</span>
+                                                    {% elif c.Verification_status == "Under Review" %}
+                                                        <span class="badge badge-warning">Under Review</span>
+                                                    {% else %}
+                                                        <span class="badge badge-danger">Unverified</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="5" class="text-center">No clients yet</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shared Modal -->
+    <div class="modal fade" id="mainModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <!-- added modal-dialog-centered -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Details</h5>
+                    <button type="button" class="close modal-close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-footer">
+                    <a href="#" id="modalActionLink" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Script -->
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("mainModal");
+  const modalBody = document.getElementById("modalBody");
+  const actionLink = document.getElementById("modalActionLink");
+
+  document.querySelectorAll(".open-modal").forEach(el => {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      const type = this.dataset.type;
+      modalBody.innerHTML = "";
+      actionLink.textContent = "View";
+      actionLink.href = this.dataset.link;
+
+      if (type === "transaction") {
+        modalBody.innerHTML = `
+          <p><strong>Transaction:</strong> ${this.dataset.transaction || "N/A"}</p>
+          <p><strong>Transaction ID:</strong> ${this.dataset.transaction_id || "N/A"}</p>
+          <p><strong>User:</strong> ${this.dataset.user}</p>
+          <p><strong>Amount:</strong> ${this.dataset.amount}</p>
+          <p><strong>Status:</strong> ${this.dataset.status}</p>
+          <p><strong>Date:</strong> ${this.dataset.date}</p>
+
+        `;
+        actionLink.textContent = "View Transaction";
+      } else if (type === "client") {
+        modalBody.innerHTML = `
+          <div class="d-flex align-items-center mb-3">
+            <img src="${this.dataset.profile}" width="60" class="rounded-circle mr-3">
+            <div>
+              <p><strong>Name:</strong> ${this.dataset.name}</p>
+              <p><strong>Email:</strong> ${this.dataset.email}</p>
+              <p><strong>Date Joined:</strong> ${this.dataset.date}</p>
+              <p><strong>Status:</strong> ${this.dataset.status}</p>
+            </div>
+          </div>
+        `;
+        actionLink.textContent = "View Profile";
+      }
+
+      modal.classList.add("show");
+      modal.style.display = "flex";
+      modal.style.alignItems = "center";   // center vertically
+      modal.style.justifyContent = "center"; // center horizontally
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  document.querySelector(".modal-close").addEventListener("click", function () {
+    modal.classList.remove("show");
+    setTimeout(() => { modal.style.display = "none"; }, 300);
+    document.body.style.overflow = "";
+  });
+
+  modal.addEventListener("click", function(e) {
+    if (e.target === modal) {
+      modal.classList.remove("show");
+      setTimeout(() => { modal.style.display = "none"; }, 300);
+      document.body.style.overflow = "";
+    }
+  });
+});
+    </script>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Tradewests | About Us {% endblock %}
+{% block content %}
+
+<!--Page Title-->
+    <section class="page-title">
+        <div class="auto-container">
+            <h1>About Us</h1>
+        </div>
+    </section>
+
+    <!--Page Info-->
+    <section class="page-info">
+        <div class="auto-container clearfix">
+            <div class="pull-left">
+            	<ul class="bread-crumb clearfix">
+                    <li><a href="index.html">Home</a></li>
+                    <li>AboutUs</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+    <!--End Page Info-->
+
+    <!--Default Section-->
+    <section class="default-section">
+        <div class="auto-container">
+
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <!--video-box-->
+                    <div class="video-image-box mar-bottom-40">
+                        <figure class="image">
+                            <img src="{% static 'frontend/images/resource/video-image.jpg' %}" alt="">
+                            <a href="#" class="overlay-link lightbox-image video-fancybox"><span class="icon "></span></a>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="feature-block-two" style="padding: 40px 20px; max-width: 800px; margin: 0 auto; text-align: center;">
+                        <h2 style="font-size: 32px; color: #0d1b2a; margin-bottom: 15px;">High-Quality Investment & Trading Services</h2>
+                        <h4 style="font-size: 18px; color: #1b263b; margin-bottom: 20px;">
+                            Since our foundation in 2015, Tradewests has leveraged cutting-edge digital technology to deliver seamless investment experiences.
+                        </h4>
+                        <div class="text" style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 30px;">
+                            At Tradewests, we provide a range of financial services designed to grow your wealth safely and efficiently.
+                            Our offerings include personalized investment portfolios, stock and forex trading, cryptocurrency management,
+                            and market analysis tools that empower you to make informed decisions. We prioritize transparency, reliability,
+                            and innovative solutions to help investors achieve their financial goals.
+                        </div>
+                        <div class="link">
+                            <a href="{% url 'accounts:signup' %}" style="padding: 12px 30px; background-color: #B13BFF; color: white; border-radius: 25px; text-decoration: none; font-weight: bold; transition: background-color 0.3s;"
+                               onmouseover="this.style.backgroundColor='#471396';"
+                               onmouseout="this.style.backgroundColor='#B13BFF';">
+                               Get Started
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div><br><br>
+            <div class="row clearfix">
+
+               <!--Services Block Four-->
+<div class="services-block-four col-md-4 col-sm-6 col-xs-12">
+    <div class="inner-box" style="padding: 20px; text-align: center; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;">
+        <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
+            <span class="icon flaticon-investment">&#128176;</span>
+        </div>
+        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Investments</a></h3>
+        <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
+            Tradewests provides tailored investment portfolios designed to maximize returns while minimizing risks.
+            We focus on diversified strategies across stocks, bonds, ETFs, and emerging markets to grow your wealth.
+        </div>
+    </div>
+</div>
+
+<!--Services Block Four-->
+<div class="services-block-four col-md-4 col-sm-6 col-xs-12">
+    <div class="inner-box" style="padding: 20px; text-align: center; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;">
+        <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
+            <span class="icon flaticon-trading">&#128200;</span>
+        </div>
+        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Trading</a></h3>
+        <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
+            Our trading team leverages cutting-edge platforms to execute stock, forex, and cryptocurrency trades efficiently.
+            We provide real-time insights, risk management tools, and personalized strategies for every trader.
+        </div>
+    </div>
+</div>
+
+<!--Services Block Four-->
+<div class="services-block-four col-md-4 col-sm-6 col-xs-12">
+    <div class="inner-box" style="padding: 20px; text-align: center; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;">
+        <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
+            <span class="icon flaticon-analysis">&#128202;</span>
+        </div>
+        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Market Analysis</a></h3>
+        <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
+            We provide detailed market research and analytics to help investors make informed decisions.
+            Our reports cover trends, forecasts, and opportunities across global markets for smarter investments.
+        </div>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!--Counter Section-->
+    <!--End Counter Section-->
+
+
+    <!-- experience section -->
+<section class="experience-section sp-three grey-bg">
+    <div class="auto-container">
+        <div class="row">
+            <div class="feature-text-one col-md-5 col-sm-12">
+                <h2>We complete every project with expertise</h2>
+                <div class="text">
+                    At Tradewest, we deliver each investment and trading project with precision and professionalism.
+                    From portfolio management to market analysis, we ensure every project drives maximum value for our clients.
+                </div>
+                <div class="link"><a href="#" class="theme-btn btn-style-four">Get Started</a></div>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <div class="row feature-right-column">
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-monitor"></span>
+                            </div>
+                            <h3><a href="services-single.html">Portfolio Management</a></h3>
+                            <div class="text">
+                                We create tailored investment portfolios that maximize returns while minimizing risk for our clients.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-business"></span>
+                            </div>
+                            <h3><a href="services-single.html">Market Analysis</a></h3>
+                            <div class="text">
+                                In-depth market research and analytics to help investors make informed decisions in stocks, forex, and crypto.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-shapes"></span>
+                            </div>
+                            <h3><a href="services-single.html">Trading Strategies</a></h3>
+                            <div class="text">
+                                Expert trading strategies across multiple markets, designed to optimize profits and minimize risk.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-line-chart"></span>
+                            </div>
+                            <h3><a href="services-single.html">Wealth Planning</a></h3>
+                            <div class="text">
+                                Comprehensive wealth planning solutions to help clients grow, protect, and manage their financial assets effectively.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

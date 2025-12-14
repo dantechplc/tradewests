@@ -1,0 +1,437 @@
+{% extends "transaction/dsh/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+.circle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.action-circle {
+  flex: 1;
+  max-width: 120px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 0 auto;
+}
+
+.action-circle i {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+}
+
+.action-circle span {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+  max-width: 80%;
+}
+
+.action-circle:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+  /* 🔥 PROMO CARD */
+/* SweetAlert Promo Styling */
+.promo-popup {
+  border-radius: 18px !important;
+  padding: 26px !important;
+}
+
+.promo-modal {
+  text-align: left;
+  position: relative;
+}
+
+.promo-title {
+  color: #ffcc00;
+  margin: 10px 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* PROMO BADGE */
+.promo-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(45deg, #ff9800, #ffcc00);
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.4);
+}
+
+/* BENEFITS */
+.promo-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+.promo-benefits li {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.promo-benefits li::before {
+  content: "✔";
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* NOTE */
+.promo-note {
+  font-size: 13px;
+  opacity: .85;
+}
+
+/* CTA BUTTON */
+.promo-confirm-btn {
+  border-radius: 30px !important;
+  padding: 12px 26px !important;
+  font-weight: bold !important;
+  font-size: 15px !important;
+}
+
+/* MOBILE */
+@media(max-width: 480px) {
+  .promo-title {
+    font-size: 18px;
+  }
+}
+
+</style>
+
+<div id="content-page" class="content-page">
+  <div class="container-fluid">
+
+
+    {% if request.user.client.Verification_status == "Unverified" %}
+      <div class="col-lg-12 alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span style="color:black;" aria-hidden="true">&times;</span>
+        </button>
+        <strong>Verify your Identity click <a href="{% url 'accounts:verify' %}">Here</a></strong>
+      </div>
+    {% endif %}
+
+    {% if request.user.client.Verification_status == "Under Review" %}
+      <div class="col-lg-12 alert alert-warning alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span style="color:black;" aria-hidden="true">&times;</span>
+        </button>
+        <strong>Account Under Review !</strong>
+      </div>
+    {% endif %}
+
+    <!-- Balances -->
+    <div class="d-flex flex-row flex-nowrap w-100">
+      <div class="p-2 flex-fill">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-body">
+            <div class="top-block d-flex align-items-center">
+              <h5 class="pr-3">Available Balance</h5>
+              <span class="badge badge-primary">USD</span>
+            </div>
+            <h3><span>{{ request.user.client.account.main_balance }}</span></h3>
+          </div>
+        </div>
+      </div>
+      <div class="p-2 flex-fill">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-body">
+            <div class="top-block d-flex align-items-center">
+              <h5 class="pr-3">ROI Balance</h5>
+              <span class="badge badge-primary">USD</span>
+            </div>
+            <h3><span>{{ request.user.client.account.roi_balance }}</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-between align-items-center flex-nowrap circle-row">
+      <a href="{% url 'transaction:deposit' %}" class="action-circle text-decoration-none">
+        <i class="ri-wallet-line text-primary"></i><span>Deposit</span>
+      </a>
+      <a href="{% url 'transaction:portfolio' %}" class="action-circle text-decoration-none">
+        <i class="ri-pie-chart-line text-info"></i><span>Portfolio</span>
+      </a>
+      <a href="{% url 'transaction:new-investment' %}" class="action-circle text-decoration-none">
+        <i class="ri-bar-chart-line text-warning"></i><span>Invest</span>
+      </a>
+      <a href="{% url 'transaction:withdraw' %}" class="action-circle text-decoration-none">
+        <i class="ri-send-plane-line text-danger"></i><span>Send</span>
+      </a>
+    </div>
+    <!-- Modern Referral Card -->
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="iq-card iq-card-block iq-card-stretch iq-card-height p-3"
+         style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); border-radius: 15px;">
+      <h4 class="mb-2" style="font-weight: 700; color: #fff;">🎉 Invite Friends & Earn Rewards!</h4>
+      <p class="mb-3" style="opacity: 0.9; color: #fff;">Share your referral link and earn bonuses when friends join!</p>
+
+      <!-- Referral Input + Copy -->
+      <div class="d-flex flex-wrap gap-2 mb-3" style="align-items: center;">
+        <input type="text" class="form-control rounded-pill flex-fill"
+               id="referralLink"
+               value="{{ request.user.client.referral_Link }}"
+               readonly
+               style="padding: 0.5rem 1rem; font-weight: 500; border: 2px solid rgba(255,255,255,0.7); color: #fff; background: rgba(255,255,255,0.1); max-width: 70%;">
+
+        <button class="btn btn-light rounded-pill d-flex align-items-center justify-content-center"
+                onclick="copyReferralLink()"
+                style="padding: 0.5rem 0.9rem; font-size: 1rem; color: #2575fc; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: all 0.2s;"
+                title="Copy Referral Link">
+          <i class="ri-file-copy-line mr-1"></i> Copy
+        </button>
+      </div>
+
+      <!-- Share Buttons -->
+      <div class="d-flex flex-wrap gap-3 mt-2">
+        <a href="https://wa.me/?text=🚀 Join me on {{company.name}} and earn smartly! Use my link: {{request.user.client.referral_Link}}"
+           target="_blank"
+           class="d-flex align-items-center justify-content-center rounded-circle"
+           style="width: 45px; height: 45px; background-color: #25D366; color: #fff; font-size: 1.3rem; transition: transform 0.2s;"
+           title="Share on WhatsApp"
+           onmouseover="this.style.transform='scale(1.2)';"
+           onmouseout="this.style.transform='scale(1)';">
+          <i class="ri-whatsapp-line"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SweetAlert2 + Copy Animation -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function copyReferralLink() {
+  const input = document.getElementById("referralLink");
+  input.select();
+  input.setSelectionRange(0, 99999); // Mobile support
+  document.execCommand("copy");
+
+  Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'success',
+    title: 'Referral link copied! 🎉',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true
+  });
+}
+</script>
+
+
+    <div class="row mt-3">
+      <div class="col-lg-6">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-body">
+            <div class="row">
+              <div class="iq-card-header d-flex justify-content-between">
+                <div class="iq-header-title"><h4 class="card-title">Market</h4></div>
+              </div>
+              <div class="col-sm-12">
+                <!-- TradingView Widget -->
+                <div class="tradingview-widget-container">
+                  <div class="tradingview-widget-container__widget"></div>
+                  <div class="tradingview-widget-copyright">
+                    <a href="https://www.tradingview.com/crypto-coins-screener/"
+                       rel="noopener nofollow" target="_blank">
+                      <span class="blue-text">Cryptocurrency market by TradingView</span>
+                    </a>
+                  </div>
+                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                  {
+                    "defaultColumn": "performance",
+                    "screener_type": "crypto_mkt",
+                    "displayCurrency": "USD",
+                    "colorTheme": "light",
+                    "isTransparent": false,
+                    "locale": "en",
+                    "width": "100%",
+                    "height": 550
+                  }
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Transactions -->
+      <div class="col-md-6">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-header d-flex justify-content-between">
+            <div class="iq-header-title"><h4 class="card-title">Latest Transactions</h4></div>
+          </div>
+          <div class="iq-card-body">
+            <ul id="transaction-list" class="list-unstyled m-0 p-0">
+              {% for transaction in transactions %}
+                <li class="d-flex mb-4 align-items-center transaction-item"
+                    data-id="{{ transaction.id }}"
+                    data-type="{{ transaction.get_transaction_type_display }}"
+                    data-date="{{ transaction.date|date:'M d, Y H:i' }}"
+                    data-amount="{{ transaction.amount }}"
+                    data-status="{{ transaction.status }}"
+                    data-reference="{{ transaction.trx_id }}"
+                    data-description="{{ transaction.payment_description }}">
+                  {% if transaction.status == 'Successful' %}
+                    <div class="profile-icon iq-bg-white alert-success"><span><i class="ri-check-fill"></i></span></div>
+                  {% elif transaction.status == 'pending' %}
+                    <div class="profile-icon iq-bg-warning alert-info"><span><i class="ri-information-line"></i></span></div>
+                  {% elif transaction.status == 'failed' %}
+                    <div class="profile-icon iq-bg-danger alert-danger"><span><i class="ri-alert-line"></i></span></div>
+                  {% else %}
+                    <div class="profile-icon bg-white alert-info"><span><i class="ri-information-line"></i></span></div>
+                  {% endif %}
+                  <div class="media-support-info ml-3">
+                    <h6>
+                      {% if transaction.get_transaction_type_display == 'INVESTMENT' %}
+                        {{ transaction.investment_name }}
+                      {% elif transaction.get_transaction_type_display == 'ROI' %}
+                        {{ transaction.investment_name }}
+                      {% else %}
+                        {{ transaction.payment_methods }}
+                      {% endif %}
+                      - {{ transaction.get_transaction_type_display }}
+                    </h6>
+                    <p class="mb-0">{{ transaction.date }}</p>
+                  </div>
+                  <div class="media-support-amount ml-3">
+                    <h6><b>{{ transaction.amount }}</b></h6>
+                    <p class="mb-0">{{ transaction.status }}</p>
+                  </div>
+                </li>
+              {% empty %}
+                <p class="text-danger">No transactions yet!</p>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal moved outside of lists -->
+<div class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transactionModalLabel">Transaction Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Type:</strong> <span id="modal-type"></span></p>
+        <p><strong>Date:</strong> <span id="modal-date"></span></p>
+        <p><strong>Amount:</strong> <span id="modal-amount"></span></p>
+        <p><strong>Status:</strong> <span id="modal-status"></span></p>
+        <p><strong>Transaction ID:</strong> <span id="modal-reference"></span></p>
+        <p><strong>Description:</strong> <span id="modal-description"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const transactionItems = document.querySelectorAll('.transaction-item');
+  const modal = $('#transactionModal');
+
+  transactionItems.forEach(item => {
+    item.addEventListener('click', function () {
+      document.getElementById('modal-type').textContent = this.dataset.type;
+      document.getElementById('modal-date').textContent = this.dataset.date;
+      document.getElementById('modal-amount').textContent = this.dataset.amount;
+      document.getElementById('modal-status').textContent = this.dataset.status;
+      document.getElementById('modal-reference').textContent = this.dataset.reference;
+      document.getElementById('modal-description').textContent = this.dataset.description;
+
+      modal.modal('show'); // ✅ Bootstrap 4
+    });
+  });
+});
+</script>
+{% if promo_investment %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  Swal.fire({
+    title: `
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:22px;">🎉</span>
+        <span style="font-weight:700; color:white;">Limited Time Promo</span>
+      </div>
+    `,
+    html: `
+      <div class="promo-modal">
+
+        <div class="promo-badge">PROMO</div>
+
+        <h3 class="promo-title">
+          {{ promo_investment.name }}
+        </h3>
+
+        <ul class="promo-benefits">
+          {% for benefit in promo_investment.benefits.all %}
+            <li class="text-white" style="color:white">{{ benefit.name }}</li>
+          {% endfor %}
+        </ul>
+
+        <p class="promo-note text-white" style="color:white">
+          Don't miss out — this offer is available for a limited time only.
+        </p>
+
+      </div>
+    `,
+    showCloseButton: true,
+    confirmButtonText: "View Plan 🚀",
+    confirmButtonColor: "#471396",
+    background: "#0d1b2a",
+    color: "#ffffff",
+
+    customClass: {
+      popup: 'promo-popup',
+      confirmButton: 'promo-confirm-btn'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "{% url 'transaction:investment_preview' promo_investment.name %}";
+    }
+  });
+
+});
+</script>
+{% endif %}
+
+
+{% endblock %}

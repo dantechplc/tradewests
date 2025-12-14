@@ -1,0 +1,212 @@
+{% extends "accounts/boss/base.html" %}
+{% block title %}CTG Admin | KYC{% endblock %}
+{% load static %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="iq-card">
+                        <div class="iq-card-body p-0">
+                            <div class="iq-edit-list">{% include 'accounts/boss/client_header.html' with id=client.id %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">KYC</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <div class="table-responsive">
+                                <table id="user-list-table" class="table table-striped table-bordered mt-4">
+                                    <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Address</th>
+                                            <th>Country</th>
+                                            <th>Status</th>
+                                            <th>Date Joined</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for clients in kyc %}
+                                            <tr class="client-row"
+                                                data-email="{{ clients.user }}"
+                                                data-first-name="{{ clients.first_name }}"
+                                                data-last-name="{{ clients.last_name }}"
+                                                data-dob="{{ clients.dob }}"
+                                                data-gender="{{ clients.gender }}"
+                                                data-address="{{ clients.address }}"
+                                                data-country="{{ clients.user.country.name }}"
+                                                data-status="{{ clients.user.Verification_status }}"
+                                                data-date="{{ clients.user.date_joined|date:'d M Y' }}"
+                                                data-id-front="{% if clients.id_front_view %}{{ clients.id_front_view.url }}{% endif %}"
+                                                data-id-back="{% if clients.id_back_view %}{{ clients.id_back_view.url }}{% endif %}"
+                                                data-view-url="{% url 'boss:client_profile' client.id %}"
+                                                data-delete-url="{% url 'boss:kyc_delete' clients.id %}"
+                                                data-verify-url="{% url 'boss:kyc_verify' clients.id %}">
+                                                <td>{{ clients.user }}</td>
+                                                <td>{{ clients.first_name }}</td>
+                                                <td>{{ clients.last_name }}</td>
+                                                <td>{{ clients.address }}</td>
+                                                <td>{{ clients.user.country.name }}</td>
+                                                <td>
+                                                    {% if clients.user.Verification_status == "Unverified" %}
+                                                        <span class="badge bg-danger">{{ clients.user.Verification_status }}</span>
+                                                    {% elif clients.user.Verification_status == "Verified" %}
+                                                        <span class="badge bg-success">{{ clients.user.Verification_status }}</span>
+                                                    {% elif clients.user.Verification_status == "Under Review" %}
+                                                        <span class="badge bg-warning text-dark">{{ clients.user.Verification_status }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ clients.user.date_joined|date }}</td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="7" class="text-center">No KYC yet</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Client Details Modal -->
+    <div class="modal fade" id="clientModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Client Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="clientModalBody"></div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="viewProfileBtn">View Profile</a>
+                    <button type="button" class="btn btn-success" id="verifyClientBtn">
+                        <i class="bi bi-patch-check"></i> Update & Verify
+                    </button>
+                    <button type="button" class="btn btn-danger" id="deleteClientBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete this client KYC details?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="post" id="deleteForm">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Verify Confirmation Modal -->
+    <div class="modal fade" id="verifyConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Verification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    This will <strong>verify the client</strong> and update their information. Do you want to proceed?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="post" id="verifyForm">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Yes, Verify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap & Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const clientModal = new bootstrap.Modal(document.getElementById("clientModal"));
+  const deleteModal = new bootstrap.Modal(document.getElementById("deleteConfirmModal"));
+  const verifyModal = new bootstrap.Modal(document.getElementById("verifyConfirmModal"));
+
+  const modalBody = document.getElementById("clientModalBody");
+  const viewProfileBtn = document.getElementById("viewProfileBtn");
+  const deleteClientBtn = document.getElementById("deleteClientBtn");
+  const verifyClientBtn = document.getElementById("verifyClientBtn");
+
+  let deleteUrl = "";
+  let verifyUrl = "";
+
+  function renderFile(label, url) {
+    if (!url) return "";
+    const ext = url.split(".").pop().toLowerCase();
+    if (["jpg","jpeg","png","gif","webp"].includes(ext)) {
+      return `<p><strong>${label}:</strong><br><img src="${url}" alt="${label}" class="img-fluid rounded shadow-sm" style="max-height:200px;"></p>`;
+    } else if (ext === "pdf") {
+      return `<p><strong>${label}:</strong> <a href="${url}" target="_blank" class="btn btn-sm btn-outline-primary">Open PDF</a></p>`;
+    } else {
+      return `<p><strong>${label}:</strong> <a href="${url}" target="_blank" class="btn btn-sm btn-outline-secondary">Download File</a></p>`;
+    }
+  }
+
+  document.querySelectorAll(".client-row").forEach(row => {
+    row.style.cursor = "pointer";
+    row.addEventListener("click", () => {
+      modalBody.innerHTML = `
+        <p><strong>Email:</strong> ${row.dataset.email}</p>
+        <p><strong>First Name:</strong> ${row.dataset.firstName}</p>
+        <p><strong>Last Name:</strong> ${row.dataset.lastName}</p>
+        <p><strong>Date of Birth:</strong> ${row.dataset.dob}</p>
+        <p><strong>Gender:</strong> ${row.dataset.gender}</p>
+        <p><strong>Address:</strong> ${row.dataset.address}</p>
+        <p><strong>Country:</strong> ${row.dataset.country}</p>
+        <p><strong>Status:</strong> ${row.dataset.status}</p>
+        <p><strong>Date Joined:</strong> ${row.dataset.date}</p>
+        ${renderFile("ID Front", row.dataset.idFront)}
+        ${renderFile("ID Back", row.dataset.idBack)}
+      `;
+
+      viewProfileBtn.href = row.dataset.viewUrl;
+
+      deleteUrl = row.dataset.deleteUrl;
+      verifyUrl = row.dataset.verifyUrl;
+
+      document.getElementById("deleteForm").action = deleteUrl;
+      document.getElementById("verifyForm").action = verifyUrl;
+
+      clientModal.show();
+    });
+  });
+
+  deleteClientBtn.addEventListener("click", () => {
+    clientModal.hide();
+    deleteModal.show();
+  });
+
+  verifyClientBtn.addEventListener("click", () => {
+    clientModal.hide();
+    verifyModal.show();
+  });
+});
+    </script>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'transaction/dsh/base.html' %}
+{% block title %}Tradewests | Withdraw{% endblock %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="iq-card">
+                        <div class="iq-card-header">
+                            <h4 class="card-title">Withdrawal via {{ method.name }}</h4>
+                        </div>
+                        <div class="iq-card-body">
+                            <p class="mb-3">Kindly fill out the form below to request your withdrawal.</p>
+                            <form id="withdrawForm" method="post">
+                                {% csrf_token %}
+                                <!-- Amount -->
+                                <div class="form-group">
+                                    <label for="usd">
+                                        Amount <span class="badge badge-primary">USD</span>
+                                    </label>
+                                    <input min="1"
+                                           required
+                                           type="number"
+                                           class="form-control form-control-lg"
+                                           name="amount_0"
+                                           placeholder="0.00"
+                                           id="usd">
+                                    <select name="amount_1" hidden id="id_amount_1" required>
+                                        <option value="USD">USD</option>
+                                    </select>
+                                    {% for err in form.amount.errors %}<small class="text-danger">{{ err }}</small>{% endfor %}
+                                </div>
+                                <!-- Wallet -->
+                                <div class="form-group">
+                                    <label for="wallet_address">Wallet Address</label>
+                                    {{ form.wallet_address }}
+                                    {% for err in form.wallet_address.errors %}<small class="text-danger">{{ err }}</small>{% endfor %}
+                                </div>
+                                <!-- Description -->
+                                <div class="form-group">
+                                    <label for="description">Payment Description (Optional)</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="payment_description"
+                                           id="description"
+                                           value="{% if form.is_bound %}{{ form.payment_description.value }}{% endif %}"
+                                           placeholder="e.g. Wallet Network">
+                                    {% for err in form.payment_description.errors %}<small class="text-danger">{{ err }}</small>{% endfor %}
+                                </div>
+                                <!-- Proceed Button -->
+                                <button type="button"
+                                        class="btn btn-primary btn-lg w-100"
+                                        data-toggle="modal"
+                                        data-target="#confirmModal"
+                                        id="openConfirmModal">Proceed</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Withdrawal</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Please confirm your withdrawal details:</p>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Amount:</strong> <span id="confirmAmount">--</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Wallet:</strong> <span id="confirmWallet">--</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Description:</strong> <span id="confirmDescription">--</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="confirmSubmit" class="btn btn-primary">Yes, Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Spinner Overlay -->
+    <div id="loadingSpinner"
+         class="d-none position-fixed w-100 h-100 top-0 left-0 d-flex justify-content-center align-items-center bg-dark bg-opacity-50"
+         style="z-index: 1050">
+        <div class="spinner-border text-light" role="status">
+            <span class="sr-only">Processing...</span>
+        </div>
+    </div>
+    <script>
+  // Populate modal with form details before showing
+  document.getElementById("openConfirmModal").addEventListener("click", function() {
+    const amount = document.getElementById("usd").value || "0.00";
+    const wallet = document.getElementById("wallet_address").value || "Not provided";
+    const description = document.getElementById("description").value || "None";
+
+    document.getElementById("confirmAmount").innerText = amount + " USD";
+    document.getElementById("confirmWallet").innerText = wallet;
+    document.getElementById("confirmDescription").innerText = description;
+  });
+
+  // Handle confirm submit
+  document.getElementById("confirmSubmit").addEventListener("click", function() {
+    $('#confirmModal').modal('hide');
+    document.getElementById("loadingSpinner").classList.remove("d-none");
+    document.getElementById("withdrawForm").submit();
+  });
+    </script>
+{% endblock %}

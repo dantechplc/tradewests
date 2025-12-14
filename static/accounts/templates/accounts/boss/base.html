@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>
+            {% block title %}{{ company.name }} | dashboard{% endblock %}
+        </title>
+        <!-- Favicon -->
+        <link rel="shortcut icon"
+              href="{{ company.favicon.url }}"
+              type="image/x-icon">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet"
+              href="{% static 'dashboard/css/bootstrap.min.css' %}">
+        <!-- Typography CSS -->
+        <link rel="stylesheet" href="{% static 'dashboard/css/typography.css' %}">
+        <!-- Style CSS -->
+        <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'dashboard/css/sweetalert.css' %}">
+        <link rel="stylesheet" href="{% static 'dashboard/css/responsive.css' %}">
+        <!--      <link rel="stylesheet"
+            href="{% static 'dashboard/css/bootstrap-select.css' %}">-->
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.css">
+        <!-- Include Cropper.js CSS -->
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.15/cropper.min.css" />
+        <!-- Include Cropper.js JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.15/cropper.min.js"></script>
+        <!-- Responsive CSS -->
+    </head>
+    <body class="sidebar-main-active right-column-fixed">
+        <!-- Wrapper Start -->
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <div class="iq-sidebar">
+                {% include "accounts/boss/header.html" %}
+                {% include "accounts/boss/sidebar.html" %}
+                {% block content %}
+                {% endblock content %}
+                {% include "transaction/dsh/footer.html" %}
+                {% include "accounts/boss/js.html" %}
+                {% load sweetify %}
+                {% sweetify %}
+            </body>
+        </html>

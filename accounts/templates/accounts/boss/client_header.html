@@ -1,0 +1,18 @@
+<ul class="iq-edit-profile d-flex nav nav-pills">
+    <li class="col-md-6 p-0">
+        <a class="nav-link {% if nav == 'profile' %}active{% endif %}"
+           href="{% url 'boss:client_profile' id %}">Personal Information</a>
+    </li>
+    <li class="col-md-4 p-0">
+        <a class="nav-link {% if nav == 'account' %}active{% endif %}"
+           href="{% url 'boss:client_account' id %}">Account Profile</a>
+    </li>
+    <li class="col-md-4 p-0">
+        <a class="nav-link {% if nav == 'investment' %}active{% endif %} "
+           href="{% url 'boss:client_investment' id %}">Investment Profile</a>
+    </li>
+    <li class="col-md-4 p-0">
+        <a class="nav-link  {% if nav == 'kyc' %}active{% endif %} "
+           href="{% url 'boss:client_kyc' id %}">KYC Profile</a>
+    </li>
+</ul>

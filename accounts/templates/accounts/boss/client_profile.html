@@ -1,0 +1,229 @@
+{% extends "accounts/boss/base.html" %}
+{% block title %}CTG Admin| Client Profile{% endblock %}
+{% load static %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="iq-card">
+                        <div class="iq-card-body p-0">
+                            <div class="iq-edit-list">{% include 'accounts/boss/client_header.html' with id=client.id %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="iq-edit-list-data">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show"
+                                 id="personal-information"
+                                 role="tabpanel">
+                                <div class="iq-card">
+                                    <div class="iq-card-header d-flex justify-content-between align-items-center flex-wrap">
+                                        <div class="iq-header-title">
+                                            <h4 class="card-title mb-0">Client Details</h4>
+                                        </div>
+                                    </div>
+                                    <div class="iq-card-body">
+                                        <!-- MAIN update form -->
+                                        <form method="post" id="profile-form">
+                                            {% csrf_token %}
+                                            <div class="row align-items-center">
+                                                <!-- First Name -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label for="fname">First Name</label>
+                                                    <input name="first_name"
+                                                           type="text"
+                                                           class="form-control {% if form.first_name.errors %}is-invalid{% endif %}"
+                                                           id="fname"
+                                                           value="{{ form.first_name.value|default:client.first_name }}">
+                                                    {% for error in form.first_name.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                                                </div>
+                                                <!-- Last Name -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label for="lname">Last Name</label>
+                                                    <input name="last_name"
+                                                           type="text"
+                                                           class="form-control {% if form.last_name.errors %}is-invalid{% endif %}"
+                                                           id="lname"
+                                                           value="{{ form.last_name.value|default:client.last_name }}">
+                                                    {% for error in form.last_name.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                                                </div>
+                                                <!-- Email -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Email:</label>
+                                                    <input readonly class="form-control" value="{{ client.user.email }}">
+                                                </div>
+                                                <!-- Gender -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Gender</label>
+                                                    <input class="form-control {% if form.gender.errors %}is-invalid{% endif %}"
+                                                           value="{{ client.gender }}"
+                                                           readonly>
+                                                    {% for error in form.gender.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                                                </div>
+                                                <!-- Date of Birth -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Date of Birth</label>
+                                                    <input readonly class="form-control" value="{{ client.dob }}">
+                                                </div>
+                                                <!-- Address -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Address</label>
+                                                    <input readonly class="form-control" value="{{ client.address }}">
+                                                </div>
+                                                <!-- State -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>State</label>
+                                                    <input readonly class="form-control" value="{{ client.state }}">
+                                                </div>
+                                                <!-- Country -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Country</label>
+                                                    <input readonly class="form-control" value="{{ client.country.name }}">
+                                                </div>
+                                                <!-- Phone Number -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Phone Number</label>
+                                                    <input readonly class="form-control" value="{{ client.phone_number }}">
+                                                </div>
+                                                <!-- Recommended by -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Referral</label>
+                                                    <input readonly class="form-control" value="{{ client.recommended_by }}">
+                                                </div>
+                                                <!-- Account Password -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Account Password</label>
+                                                    <input readonly class="form-control" value="{{ client.account_password }}">
+                                                </div>
+                                                <!-- Verification Status -->
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Verification status</label>
+                                                    <select name="Verification_status"
+                                                            class="form-control {% if form.Verification_status.errors %}is-invalid{% endif %}"
+                                                            id="id_Verification_status">
+                                                        <option value="{{ client.Verification_status }}">{{ client.Verification_status }}</option>
+                                                        {% if client.Verification_status == "Verified" %}
+                                                            <option value="Under Review">Under Review</option>
+                                                            <option value="Unverified">Unverified</option>
+                                                        {% elif client.Verification_status == "Unverified" %}
+                                                            <option value="Verified">Verified</option>
+                                                            <option value="Under Review">Under Review</option>
+                                                        {% elif client.Verification_status == "Under Review" %}
+                                                            <option value="Verified">Verified</option>
+                                                            <option value="Unverified">Unverified</option>
+                                                        {% else %}
+                                                            <option value="Verified">Verified</option>
+                                                            <option value="Under Review">Under Review</option>
+                                                            <option value="Unverified">Unverified</option>
+                                                        {% endif %}
+                                                    </select>
+                                                    {% for error in form.Verification_status.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                                                </div>
+                                            </div>
+                                            <!-- action buttons -->
+                                            <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-start">
+                                                <button type="submit" class="btn btn-primary w-100 w-md-auto">Save changes</button>
+                                                <button id="btn-delete"
+                                                        type="button"
+                                                        class="btn btn-danger w-100 w-md-auto"
+                                                        aria-label="Delete client">Delete Client</button>
+                                                <button id="btn-toggle-active"
+                                                        type="button"
+                                                        class="btn w-100 w-md-auto {% if not client.user.is_active %}btn-success{% else %}btn-warning{% endif %}">
+                                                    {% if not client.user.is_active %}
+                                                        Activate
+                                                    {% else %}
+                                                        Deactivate
+                                                    {% endif %}
+                                                    Account
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <!-- Hidden forms for safe POST -->
+                                        <form id="delete-form"
+                                              method="post"
+                                              action="{% url 'boss:client_delete' client.id %}"
+                                              style="display:none">
+                                            {% csrf_token %}
+                                        </form>
+                                        <form id="toggle-active-form"
+                                              method="post"
+                                              action="{% if client.user.is_active %}{% url 'boss:client_deactivate' client.id %}{% else %}{% url 'boss:client_activate' client.id %}{% endif %}"
+                                              style="display:none">
+                                            {% csrf_token %}
+                                            <input type="hidden"
+                                                   name="action"
+                                                   value="{% if client.user.is_active %}deactivate{% else %}activate{% endif %}">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const deleteBtn = document.getElementById('btn-delete');
+  const toggleBtn = document.getElementById('btn-toggle-active');
+
+  function clientName() {
+    return "{{ client.first_name|escapejs }}";
+  }
+
+  const confirmAction = async (options) => {
+    if (window.Swal) {
+      return Swal.fire(options);
+    }
+    return new Promise(resolve => {
+      const ok = confirm(options.text || options.title);
+      resolve({ isConfirmed: ok });
+    });
+  };
+
+  if(deleteBtn){
+    deleteBtn.addEventListener('click', async function(e){
+      e.preventDefault();
+      const result = await confirmAction({
+        title: 'Delete client?',
+        text: `Are you sure you want to permanently delete ${clientName()}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#d33'
+      });
+      if(result.isConfirmed){
+        document.getElementById('delete-form').submit();
+      }
+    });
+  }
+
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', async function(e){
+      e.preventDefault();
+      const isActive = {{ client.user.is_active|yesno:"true,false" }};
+      const actionText = isActive ? 'deactivate' : 'activate';
+      const confirmColor = isActive ? '#f0ad4e' : '#198754';
+      const result = await confirmAction({
+        title: `${actionText.charAt(0).toUpperCase()+actionText.slice(1)} account?`,
+        text: `${actionText.charAt(0).toUpperCase()+actionText.slice(1)} ${clientName()}'s account?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: `Yes, ${actionText}`,
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: confirmColor
+      });
+      if(result.isConfirmed){
+        document.getElementById('toggle-active-form').submit();
+      }
+    });
+  }
+});
+    </script>
+{% endblock %}

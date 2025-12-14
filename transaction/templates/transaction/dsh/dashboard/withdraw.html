@@ -1,0 +1,48 @@
+{% extends 'transaction/dsh/base.html' %}
+{% block title %}Tradewests | Withdraw{% endblock %}
+{% block content %}
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="row gy-4">
+                <!-- Balance Card -->
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 rounded-3 bg-primary text-white">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1 text-white">Available Balance</h6>
+                                <h2 class="fw-bold mb-0 text-white">{{ request.user.client.account.main_balance }}</h2>
+                            </div>
+                            <i class="ri-wallet-3-line fs-1 opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Withdrawal Form -->
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-header bg-white border-0">
+                            <h5 class="fw-semibold mb-0">Withdraw Funds</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <!-- Select Method -->
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Withdrawal Method</label>
+                                    <select name="payment_method"
+                                            id="payment_method"
+                                            class="form-control"
+                                            required>
+                                        <option value="" disabled selected>Select method</option>
+                                        {% for method in payment_method %}<option value="{{ method }}">{{ method }}</option>{% endfor %}
+                                    </select>
+                                </div>
+                                <!-- Submit -->
+                                <button type="submit" class="btn btn-primary w-100">Submit Withdrawal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

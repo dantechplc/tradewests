@@ -1,0 +1,951 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Tradewests | Home {% endblock %}
+{% block content %}
+
+    <!--Main Slider-->
+    <section class="main-slider">
+
+        <div class="rev_slider_wrapper fullwidthbanner-container"  id="rev_slider_one_wrapper" data-source="gallery">
+            <div class="rev_slider fullwidthabanner" id="rev_slider_one" data-version="5.4.1">
+                <ul>
+
+                    <li data-description="Slide Description" data-easein="default" data-easeout="default" data-fsmasterspeed="1500" data-fsslotamount="7" data-fstransition="fade" data-hideafterloop="0" data-hideslideonmobile="off" data-index="rs-1687" data-masterspeed="default" data-param1="" data-param10="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-rotate="0" data-saveperformance="off" data-slotamount="default" data-thumb="images/main-slider/image-1.jpg' %}" data-title="Slide Title" data-transition="3dcurtain-vertical">
+                    <img alt="" class="rev-slidebg" data-bgfit="cover" data-bgparallax="10" data-bgposition="center center" data-bgrepeat="no-repeat" data-no-retina="" src="{% static 'frontend/images/main-slider/tradwest_bg.jpg' %}">
+
+                    <div class="tp-caption"
+                    data-paddingbottom="[0,0,0,0]"
+                    data-paddingleft="[0,0,0,0]"
+                    data-paddingright="[0,0,0,0]"
+                    data-paddingtop="[0,0,0,0]"
+                    data-responsive_offset="on"
+                    data-type="text"
+                    data-height="none"
+                    data-width="['600','600','600','360']"
+                    data-whitespace="normal"
+                    data-hoffset="['15','15','15','15']"
+                    data-voffset="['-85','-90','-80','-65']"
+                    data-x="['left','left','left','left']"
+                    data-y="['middle','middle','middle','middle']"
+                    data-textalign="['top','top','top','top']"
+                    data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                    style="z-index: 7; white-space: nowrap;">
+                    	<h2>Smart Trading <br> Maximum Profit!</h2>
+                    </div>
+
+                    <div class="tp-caption tp-resizeme"
+                    data-paddingbottom="[0,0,0,0]"
+                    data-paddingleft="[0,0,0,0]"
+                    data-paddingright="[0,0,0,0]"
+                    data-paddingtop="[0,0,0,0]"
+                    data-responsive_offset="on"
+                    data-type="text"
+                    data-height="none"
+                    data-whitespace="nowrap"
+                    data-width="none"
+                    data-hoffset="['15','15','15','15']"
+                    data-voffset="['35','25','15','20']"
+                    data-x="['left','left','left','left']"
+                    data-y="['middle','middle','middle','middle']"
+                    data-textalign="['top','top','top','top']"
+                    data-frames='[{"from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                    style="z-index: 7; white-space: nowrap;">
+                    	<div class="text">Leverage the power of technology and <br> professional insights to optimize your investment.</div>
+                    </div>
+
+                    <div class="tp-caption tp-resizeme"
+                    data-paddingbottom="[0,0,0,0]"
+                    data-paddingleft="[0,0,0,0]"
+                    data-paddingright="[0,0,0,0]"
+                    data-paddingtop="[0,0,0,0]"
+                    data-responsive_offset="on"
+                    data-type="text"
+                    data-height="none"
+                    data-width="['600','600','400','360']"
+                    data-whitespace="normal"
+                    data-hoffset="['15','15','15','15']"
+                    data-voffset="['115','105','90','85']"
+                    data-x="['left','left','left','left']"
+                    data-y="['middle','middle','middle','middle']"
+                    data-textalign="['top','top','top','top']"
+                    data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                    style="z-index: 7; white-space: nowrap;">
+                    	<a href="{% url 'accounts:signup' %}" class="theme-btn btn-style-one">Get in touch</a>&ensp; &nbsp;<a href="{% url 'frontend:plans' %}" class="theme-btn btn-style-two">Our plans</a>
+
+                    </div>
+
+                    </li>
+
+                    <li data-description="Slide Description" data-easein="default" data-easeout="default" data-fsmasterspeed="1500" data-fsslotamount="7" data-fstransition="slotzoom-horizontal" data-hideafterloop="0" data-hideslideonmobile="off" data-index="rs-1688" data-masterspeed="default" data-param1="" data-param10="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-rotate="0" data-saveperformance="off" data-slotamount="default" data-thumb="images/main-slider/image-2.jpg' %}" data-title="Slide Title" data-transition="slidingoverlayright">
+                    <img alt="" class="rev-slidebg" data-bgfit="cover" data-bgparallax="10" data-bgposition="center center" data-bgrepeat="no-repeat" data-no-retina="" src="{% static 'frontend/images/main-slider/tradwests_workers.jpg' %}">
+
+                    <div class="tp-caption"
+                    data-paddingbottom="[0,0,0,0]"
+                    data-paddingleft="[0,0,0,0]"
+                    data-paddingright="[0,0,0,0]"
+                    data-paddingtop="[0,0,0,0]"
+                    data-responsive_offset="on"
+                    data-type="text"
+                    data-height="none"
+                    data-width="['600','600','600','360']"
+                    data-whitespace="normal"
+                    data-hoffset="['15','15','15','15']"
+                    data-voffset="['-85','-90','-80','-65']"
+                    data-x="['left','left','left','left']"
+                    data-y="['middle','middle','middle','middle']"
+                    data-textalign="['top','top','top','top']"
+                    data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                    style="z-index: 7; white-space: nowrap;">
+                    	<h2>Your Future <br> Your Wealth</h2>
+                    </div>
+
+                    <div class="tp-caption tp-resizeme"
+                    data-paddingbottom="[0,0,0,0]"
+                    data-paddingleft="[0,0,0,0]"
+                    data-paddingright="[0,0,0,0]"
+                    data-paddingtop="[0,0,0,0]"
+                    data-responsive_offset="on"
+                    data-type="text"
+                    data-height="none"
+                    data-whitespace="nowrap"
+                    data-width="none"
+                    data-hoffset="['15','15','15','15']"
+                    data-voffset="['35','25','15','20']"
+                    data-x="['left','left','left','left']"
+                    data-y="['middle','middle','middle','middle']"
+                    data-textalign="['top','top','top','top']"
+                    data-frames='[{"from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                    style="z-index: 7; white-space: nowrap;">
+                    	<div class="text">Take control of your financial future with Tradewests<br> We provide tailored investment opportunities for all levels.</div>
+                    </div>
+
+                    <div class="tp-caption tp-resizeme"
+                    data-paddingbottom="[0,0,0,0]"
+                    data-paddingleft="[0,0,0,0]"
+                    data-paddingright="[0,0,0,0]"
+                    data-paddingtop="[0,0,0,0]"
+                    data-responsive_offset="on"
+                    data-type="text"
+                    data-height="none"
+                    data-width="['600','600','400','360']"
+                    data-whitespace="normal"
+                    data-hoffset="['15','15','15','15']"
+                    data-voffset="['115','105','90','85']"
+                    data-x="['left','left','left','left']"
+                    data-y="['middle','middle','middle','middle']"
+                    data-textalign="['top','top','top','top']"
+                    data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                    style="z-index: 7; white-space: nowrap;">
+                    	<a href="{% url 'accounts:signup' %}" class="theme-btn btn-style-one">Get in touch</a>&ensp; &nbsp;<a href="{% url 'frontend:plans' %}" class="theme-btn btn-style-two">Our plans</a>
+                    </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </section>
+    <!--End Main Slider-->
+
+    <!--welcome Section-->
+    <section class="welcome-section sp-two">
+    	<div class="auto-container">
+            <div class="row clearfix">
+
+                <!--Services Block Three-->
+                <div class="services-block-three col-md-4 col-sm-6 col-xs-12">
+                	<div class="inner-box">
+
+                        <figure class="image imghvr-strip-vert-bottom-right">
+                            <img src="{% static 'frontend/images/resource/services-5.jpg' %}" alt="" />
+
+                        </figure>
+                        <div class="content">
+                            <div class="icon-box"><span class="icon flaticon-chart-1"></span></div>
+                            <h3><a href="#">Investment Management</a></h3>
+                            <div class="text">Investment management is not just restricted to buying and selling, it also features financial assets and investments.</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Services Block Three-->
+                <div class="services-block-three col-md-4 col-sm-6 col-xs-12">
+                	<div class="inner-box">
+                        <figure class="image imghvr-strip-vert-bottom-right">
+                            <img src="{% static 'frontend/images/resource/services-6.jpg' %}" alt="" />
+                        </figure>
+                        <div class="content">
+                            <div class="icon-box"><span class="icon flaticon-chart"></span></div>
+                            <h3><a href="#">Financial Consulting</a></h3>
+                            <div class="text">We work with our clients to better understand their assets and what they want those assets to do for them now and in the future.</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Services Block Three-->
+                <div class="services-block-three col-md-4 col-sm-6 col-xs-12">
+                	<div class="inner-box">
+                        <figure class="image imghvr-strip-vert-bottom-right">
+                            <img src="{% static 'frontend/images/resource/services-7.jpg' %}" alt="" />
+
+                        </figure>
+                        <div class="content">
+                            <div class="icon-box"><span class="icon flaticon-world-grid"></span></div>
+                            <h3><a href="services-single.html">Insurance Consulting</a></h3>
+                            <div class="text">With our insurance consulting services, we help insurers drive operational efficiency, and increase profitability.</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--End Services Section-->
+    <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="#" rel="noopener nofollow" target="_blank"><span class="blue-text"></span></a><span class="trademark"> Tradewests</span></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    {
+      "proName": "FOREXCOM:SPXUSD",
+      "title": "S&P 500 Index"
+    },
+    {
+      "proName": "FOREXCOM:NSXUSD",
+      "title": "US 100 Cash CFD"
+    },
+    {
+      "proName": "FX_IDC:EURUSD",
+      "title": "EUR to USD"
+    },
+    {
+      "proName": "BITSTAMP:BTCUSD",
+      "title": "Bitcoin"
+    },
+    {
+      "proName": "BITSTAMP:ETHUSD",
+      "title": "Ethereum"
+    }
+  ],
+  "colorTheme": "dark",
+  "locale": "en",
+  "largeChartUrl": "",
+  "isTransparent": false,
+  "showSymbolLogo": true,
+  "displayMode": "adaptive"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+    <!--about Section-->
+    <section class="about-section sp-three grey-bg">
+        <div class="auto-container">
+             <!--Sec Title-->
+            <div class="sec-title centered">
+                <h2>Who We Are</h2>
+            </div>
+            <div class="row clearfix">
+                <!--Text Column -->
+                <div class="about-style-two text-column col-md-6 col-sm-12 col-xs-12">
+                    <!--Section Title-->
+                    <h2>We have experience from 10 years.</h2>
+                    <div class="inner-box">
+                         <div class="text">
+                            <h4>We are headquartered in North America <br> associates location. </h4>
+                            <p>At Tradewests, we believe that investment is no longer a luxury but rather a necessity. From this perspective springs our aim of helping clients navigate their digital Tradwests financial journey through uniquely diversified investments in Tradewests stocks, Tradewest Spots trading armed with innovative investments strategies to build a better future for themselves and generation to come. </p>
+                            <div class="link-box padd-top-20"><a href="{% url 'accounts:signup' %}" class="theme-btn btn-style-one">Get Started <span class="fa fa-long-arrow-right"></span></a></div>
+                         </div>
+                    </div>
+                </div>
+
+                <!--Skills -->
+                <div class="column col-md-6 col-sm-12 col-xs-12">
+
+                    <!--Progress Levels-->
+                    <div class="progress-levels">
+
+                        <!--Skill Box-->
+                        <div class="progress-box wow fadeInRight" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <div class="box-title">FINANCIAL PLANNING</div>
+                            <div class="inner">
+                                <div class="bar">
+                                    <div class="bar-innner"><div class="bar-fill" data-percent="100"></div></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Skill Box-->
+                        <div class="progress-box wow fadeInRight" data-wow-delay="200ms" data-wow-duration="1500ms">
+                            <div class="box-title">INVESTMENT PLANNING</div>
+                            <div class="inner">
+                                <div class="bar">
+                                    <div class="bar-innner"><div class="bar-fill" data-percent="100"></div></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Skill Box-->
+                        <div class="progress-box wow fadeInRight" data-wow-delay="300ms" data-wow-duration="1500ms">
+                            <div class="box-title">RISK MANAGEMENT</div>
+                            <div class="inner">
+                                <div class="bar">
+                                    <div class="bar-innner"><div class="bar-fill" data-percent="100"></div></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Skill Box-->
+                        <div class="progress-box wow fadeInRight" data-wow-delay="400ms" data-wow-duration="1500ms">
+                            <div class="box-title">TRADING ANALYSIS</div>
+                            <div class="inner">
+                                <div class="bar">
+                                    <div class="bar-innner"><div class="bar-fill" data-percent="100"></div></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- services Section-->
+    <section class="services-section sp-two">
+        <div class="auto-container">
+            <!--Sec Title-->
+            <div class="sec-title centered">
+                <h2>Our Main Services</h2>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <!--video-box-->
+                    <div class="video-image-box mar-bottom-40">
+                        <figure class="image">
+                            <img src="{% static 'frontend/images/resource/video-image.jpg' %}" alt="">
+                            <a href="#" class="overlay-link lightbox-image video-fancybox"><span class="icon"></span></a>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="feature-block-two" style="padding: 40px 20px; max-width: 800px; margin: 0 auto; text-align: center;">
+                        <h2 style="font-size: 32px; color: #0d1b2a; margin-bottom: 15px;">High-Quality Investment & Trading Services</h2>
+                        <h4 style="font-size: 18px; color: #1b263b; margin-bottom: 20px;">
+                            Since our foundation in 2015, Tradewests has leveraged cutting-edge digital technology to deliver seamless investment experiences.
+                        </h4>
+                        <div class="text" style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 30px;">
+                            At Tradewests, we provide a range of financial services designed to grow your wealth safely and efficiently.
+                            Our offerings include personalized investment portfolios, stock and forex trading, cryptocurrency management,
+                            and market analysis tools that empower you to make informed decisions. We prioritize transparency, reliability,
+                            and innovative solutions to help investors achieve their financial goals.
+                        </div>
+                        <div class="link">
+                            <a href="{% url 'accounts:signup' %}" style="padding: 12px 30px; background-color: #B13BFF; color: white; border-radius: 25px; text-decoration: none; font-weight: bold; transition: background-color 0.3s;"
+                               onmouseover="this.style.backgroundColor='#471396';"
+                               onmouseout="this.style.backgroundColor='#B13BFF';">
+                               Get Started
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div><br><br>
+            <div class="row clearfix">
+<!--Services Block Four-->
+<div class="services-block-four col-md-4 col-sm-6 col-xs-12">
+    <div class="inner-box" style="padding: 20px; text-align: center; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;">
+        <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
+            <span class="icon flaticon-investment">&#128176;</span>
+        </div>
+        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Investments</a></h3>
+        <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
+            Tradewests provides tailored investment portfolios designed to maximize returns while minimizing risks.
+            We focus on diversified strategies across stocks, bonds, ETFs, and emerging markets to grow your wealth.
+        </div>
+    </div>
+</div>
+
+<!--Services Block Four-->
+<div class="services-block-four col-md-4 col-sm-6 col-xs-12">
+    <div class="inner-box" style="padding: 20px; text-align: center; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;">
+        <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
+            <span class="icon flaticon-trading">&#128200;</span>
+        </div>
+        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Trading</a></h3>
+        <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
+            Our trading team leverages cutting-edge platforms to execute stock, forex, and cryptocurrency trades efficiently.
+            We provide real-time insights, risk management tools, and personalized strategies for every trader.
+        </div>
+    </div>
+</div>
+
+<!--Services Block Four-->
+<div class="services-block-four col-md-4 col-sm-6 col-xs-12">
+    <div class="inner-box" style="padding: 20px; text-align: center; border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px;">
+        <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
+            <span class="icon flaticon-analysis">&#128202;</span>
+        </div>
+        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Market Analysis</a></h3>
+        <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
+            We provide detailed market research and analytics to help investors make informed decisions.
+            Our reports cover trends, forecasts, and opportunities across global markets for smarter investments.
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </section>
+    <!--End Two Default Section-->
+
+
+
+<!--Work Section-->
+<section class="work-section sp-one" style="background-color:#0d1b2a; padding:80px 0; color:white;">
+    <div class="auto-container">
+        <!-- Section Title -->
+        <div class="sec-title centered" style="text-align:center; margin-bottom:60px;">
+            <h2 style="font-size:36px; color:white;">Why Choose Tradewests</h2>
+            <div class="text" style="font-size:16px; max-width:600px; margin:10px auto 0; color:#f0f0f0;">
+                At Tradewests, we combine expertise, technology, and reliability to provide exceptional investment and trading services. Here's why our clients trust us:
+            </div>
+        </div>
+
+        <!-- Feature Blocks -->
+        <div class="row clearfix" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+
+
+            <!-- Feature 2 -->
+            <div class="column col-md-3 col-sm-6 col-xs-12" style="position:relative; background: rgba(255, 33, 79,0.1); padding:30px; border-radius:12px; text-align:center; flex:1 1 250px; overflow:hidden;">
+                <div class="image-overlay" style="background-image:url('{% static 'frontend/images/resource/news-1.jpg' %}'); background-size:cover; background-position:center; border-radius:12px; height:120px; margin-bottom:15px;"></div>
+                <h4 style="color:white; margin-bottom:10px;">Expert Trading</h4>
+                <div class="text" style="color:#f0f0f0; font-size:14px; line-height:1.6;">
+                    Professional trading across stocks, forex, and crypto with real-time insights and risk management.
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="column col-md-3 col-sm-6 col-xs-12" style="position:relative; background: rgba(255, 33, 79,0.1); padding:30px; border-radius:12px; text-align:center; flex:1 1 250px; overflow:hidden;">
+                <div class="image-overlay" style="background-image:url('{% static 'frontend/images/gallery/1.jpg' %}'); background-size:cover; background-position:center; border-radius:12px; height:120px; margin-bottom:15px;"></div>
+                <h4 style="color:white; margin-bottom:10px;">Market Insights</h4>
+                <div class="text" style="color:#f0f0f0; font-size:14px; line-height:1.6;">
+                    In-depth market analysis and research to empower smarter investment decisions.
+                </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="column col-md-3 col-sm-6 col-xs-12" style="position:relative; background: rgba(255, 33, 79,0.1); padding:30px; border-radius:12px; text-align:center; flex:1 1 250px; overflow:hidden;">
+                <div class="image-overlay" style="background-image:url('{% static 'frontend/images/gallery/3.jpg' %}'); background-size:cover; background-position:center; border-radius:12px; height:120px; margin-bottom:15px;"></div>
+                <h4 style="color:white; margin-bottom:10px;">Award-Winning Service</h4>
+                <div class="text" style="color:#f0f0f0; font-size:14px; line-height:1.6;">
+                    Recognized for excellence in investment management, trading, and client satisfaction.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--End Work Section-->
+
+
+    <!-- experience section -->
+<section class="experience-section sp-three grey-bg">
+    <div class="auto-container">
+        <div class="row">
+            <div class="feature-text-one col-md-5 col-sm-12">
+                <h2>We complete every project with expertise</h2>
+                <div class="text">
+                    At Tradewest, we deliver each investment and trading project with precision and professionalism.
+                    From portfolio management to market analysis, we ensure every project drives maximum value for our clients.
+                </div>
+                <div class="link"><a href="{% url 'accounts:signup' %}" class="theme-btn btn-style-four">Get Started</a></div>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <div class="row feature-right-column">
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-monitor"></span>
+                            </div>
+                            <h3><a href="services-single.html">Portfolio Management</a></h3>
+                            <div class="text">
+                                We create tailored investment portfolios that maximize returns while minimizing risk for our clients.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-business"></span>
+                            </div>
+                            <h3><a href="services-single.html">Market Analysis</a></h3>
+                            <div class="text">
+                                In-depth market research and analytics to help investors make informed decisions in stocks, forex, and crypto.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-shapes"></span>
+                            </div>
+                            <h3><a href="services-single.html">Trading Strategies</a></h3>
+                            <div class="text">
+                                Expert trading strategies across multiple markets, designed to optimize profits and minimize risk.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-block-seven col-md-6 col-sm-6 col-xs-12">
+                        <div class="inner-box">
+                            <div class="icon-box">
+                                <span class="icon flaticon-line-chart"></span>
+                            </div>
+                            <h3><a href="services-single.html">Wealth Planning</a></h3>
+                            <div class="text">
+                                Comprehensive wealth planning solutions to help clients grow, protect, and manage their financial assets effectively.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- testimonial -->
+<section class="testimonial-section sp-one">
+    <div class="auto-container">
+        <!--Sec Title-->
+        <div class="sec-title">
+            <h2>What Our Clients Say</h2>
+        </div>
+        <div class="three-item-carousel owl-carousel owl-theme row-10 owl-nav-none">
+
+
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-block-three">
+                <div class="quote-icon">
+                    <span class="flaticon-left-quotes-sign"></span>
+                </div>
+                <div class="text">
+                    Thanks to Tradewest, I now understand market trends better and make smarter investment decisions.
+                </div>
+                <div class="author">
+                    <div class="image"><img src="{% static 'frontend/images/resource/team-2.jpg' %}" alt=""></div>
+                    <h4>Robert Boult</h4>
+
+                </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-block-three">
+                <div class="quote-icon">
+                    <span class="flaticon-left-quotes-sign"></span>
+                </div>
+                <div class="text">
+                    Their wealth planning services have been a game-changer for my finances. Highly professional and reliable team.
+                </div>
+                <div class="author">
+                    <div class="image"><img src="{% static 'frontend/images/resource/author-1.jpg' %}" alt=""></div>
+                    <h4>Adam Smith</h4>
+
+                </div>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="testimonial-block-three">
+                <div class="quote-icon">
+                    <span class="flaticon-left-quotes-sign"></span>
+                </div>
+                <div class="text">
+                    Tradewest consistently delivers excellent investment advice. I highly recommend their services to anyone looking to grow wealth.
+                </div>
+                <div class="author">
+                    <div class="image"><img src="{% static 'frontend/images/resource/author-2.jpg' %}" alt=""></div>
+                    <h4>Rose Elisha</h4>
+                    <p>Investor</p>
+                </div>
+            </div>
+
+            <!-- Testimonial 6 -->
+            <div class="testimonial-block-three">
+                <div class="quote-icon">
+                    <span class="flaticon-left-quotes-sign"></span>
+                </div>
+                <div class="text">
+                    The team at Tradewest helped me understand trading risks and opportunities. Their insights are unmatched.
+                </div>
+                <div class="author">
+                    <div class="image"><img src="{% static 'frontend/images/resource/author-3.jpg' %}" alt=""></div>
+                    <h4>Robert Boult</h4>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--End Testimonial Section-->
+
+
+<!-- pricing -->
+<section class="pricing-section sp-one" style="background:#0d1b2a; color:white; padding:80px 0;">
+    <div class="auto-container">
+
+        <div class="sec-title light centered">
+            <h2>Investment Plans</h2>
+        </div>
+
+        <!-- 🔥 DYNAMIC TOGGLES -->
+        <div style="text-align:center; margin-bottom:40px;">
+            {% for category in categories %}
+            <button class="plan-toggle {% if forloop.first %}active{% endif %}"
+                    data-plan="cat-{{ category.id }}"
+                    style="background:{% if forloop.first %}#471396{% else %}#1b2a3a{% endif %};
+                           color:white; border:none; padding:12px 25px; margin:5px;
+                           border-radius:25px; cursor:pointer; font-weight:bold;">
+                {{ category.name }}
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- 🔥 PLANS CONTAINER -->
+        <div class="plans-container">
+
+            {% for category in categories %}
+            <div class="plan-group {% if forloop.first %}active{% endif %}" id="cat-{{ category.id }}">
+                <div class="plan-wrapper">
+                    {% for investment in investments %}
+                        {% if investment.category_id == category.id %}
+                        <div class="plan-card {% if investment.is_promo %}promo{% endif %}">
+
+                            {% if investment.is_promo %}
+                            <div class="promo-ribbon">🔥 Promo</div>
+                            {% endif %}
+
+                            {% if investment.image %}
+                            <div class="icon">
+                                <img src="{{ investment.image.url }}" alt="{{ investment.name }}" style="width:50px;height:50px;object-fit:contain;">
+                            </div>
+                            {% endif %}
+
+                            <h3 class="plan-title">{{ investment.name }}</h3>
+
+                            <ul class="benefits">
+
+                                {% for benefit in investment.benefits.all %}
+                                    <li class="font-weight-bold">{{ benefit.name }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <a href="{% url 'accounts:login' %}" class="invest-btn">Invest Now</a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+<style>
+.plan-group { display: none; }
+.plan-group.active { display: block; }
+
+.plan-wrapper {
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:center;
+}
+
+.plan-card {
+    flex:1 1 250px;
+    background:#1b2a3a;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    position:relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.plan-card.promo {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    border: 2px solid #fff;
+}
+
+.promo-ribbon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #fff;
+    color: #ff416c;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    transform: rotate(20deg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.plan-title { color:white; font-size:20px; margin-bottom:12px; }
+
+.icon { font-size:45px; margin-bottom:10px; }
+
+.benefits {
+    list-style:none;
+    padding:0;
+    margin:0 0 20px 0;
+    text-align:left;
+    color:#f0f0f0;
+    line-height:1.6;
+}
+.benefits li { margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+.benefits li::before { content:"✔"; color:#471396; font-size:14px; }
+
+.invest-btn {
+    display:block;
+    width:100%;
+    padding:12px;
+    background:#471396;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:25px;
+    text-align:center;
+    transition: all 0.3s;
+}
+.invest-btn:hover {
+    background:#5a2dc8;
+}
+
+@media(max-width:600px) {
+    .invest-btn { font-size:14px; padding:14px; }
+    .plan-card { flex:1 1 100%; }
+}
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const toggles = document.querySelectorAll(".plan-toggle");
+    const planGroups = document.querySelectorAll(".plan-group");
+
+    toggles.forEach(btn => {
+        btn.addEventListener("click", function () {
+
+            toggles.forEach(b => {
+                b.classList.remove("active");
+                b.style.background = "#1b2a3a";
+            });
+
+            planGroups.forEach(group => {
+                group.classList.remove("active");
+            });
+
+            this.classList.add("active");
+            this.style.background = "#471396";
+
+            const target = this.dataset.plan;
+            document.getElementById(target).classList.add("active");
+        });
+    });
+
+});
+</script>
+
+    <!--Call To Action-->
+    <section class="call-to-action hidden">
+    	<div class="auto-container">
+        	<div class="row clearfix">
+            	<div class="column col-md-8 col-sm-12 col-xs-12">
+                	<div class="text">We are the best business consulting company ever!!</div>
+                </div>
+                <div class="column text-right col-md-4 col-sm-12 col-xs-12">
+                	<a href="#" class="theme-btn btn-style-three">Purchase Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Call To Action-->
+
+    <!-- newsletter -->
+    <section class="newsletter">
+        <div class="auto-container">
+            <div class="cd-form-wrapper cd-container">
+                <form class="cd-form">
+                    <label class="cd-label" for="cd-email">Newsletter</label>
+                    <input type="email" id="cd-email" class="cd-email" name="cd-email" placeholder="Enter your email address">
+                    <input type="submit" class="cd-submit" value="Submit">
+                    <div class="cd-loading"></div>
+                </form>
+
+                <div data-type="message" class="cd-response cd-response-error">Ops! Error message here</div>
+                <div data-type="message" class="cd-response-success"><p>Great! Success message here</p></div>
+                <div data-type="message" class="cd-response cd-response-notification">Hey! Notification message here</div>
+            </div>
+        </div>
+    </section>
+
+    <!--News Section-->
+    <!--End News Section-->
+
+    <!-- Get in Touch -->
+    <section class="getintouch sp-one">
+        <div class="auto-container">
+            <div class="sec-title centered">
+                <h2>Get In Touch </h2>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-12">
+                    <div class="contact-form default-form">
+                        <form method="post"  id="contact-form">
+                            {% csrf_token %}
+                            <div class="row clearfix">
+
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="group-inner">
+                                        <input type="text" name="username" value="" placeholder="Name *">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="group-inner">
+                                        <input type="email" name="email" value="" placeholder="Email *">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <div class="group-inner">
+                                        <input type="text" name="subject" placeholder="Subject">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <div class="group-inner">
+                                        <textarea name="message" placeholder="Message *"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" class="theme-btn btn-style-one">SUBMIT </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <!--Map Section-->
+                    <div class="map-section">
+                        <div class="map-outer">
+                            <!--Map Canvas-->
+<div id="osm-map" style="height:380px; width:100%; border-radius:8px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Tradewests Office Coordinates - Concord NH
+        const officeLat = 43.223280;
+        const officeLng = -71.537430;
+
+        // Center of New Hampshire state for map zoom
+        const newHampshireCenter = [43.9, -71.5];
+
+        // Initialize map centered on NH
+        const map = L.map('osm-map').setView(newHampshireCenter, 8);
+        // Zoom 8 gives entire NH view; increase to 10–12 for tighter region focus
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add Tradewests marker pinned at office address
+        L.marker([officeLat, officeLng]).addTo(map)
+            .bindPopup("<b>Tradewests</b><br>53 Regional Drive, Suite 200<br>Concord, NH 03301")
+            .openPopup();
+    });
+</script>
+
+    <!--Clients Section-->
+ <!-- Popup container -->
+    <div id="popup" style="
+        position: fixed;
+        bottom: -100px;
+        right: 10px;
+        max-width: 90%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: bottom 0.5s ease, opacity 0.5s ease;
+        opacity: 0;
+        font-size: 14px;
+        z-index: 9999;
+        text-align: center;
+    "></div>
+
+    <script>
+        const names = ["Roger", "Emily", "John", "Sophia", "Michael", "Olivia", "Liam", "Emma", "Noah", "Ava"];
+        const countries = ["United Kingdom", "USA", "Canada", "Australia", "Germany", "France", "India", "Brazil", "Japan", "Italy"];
+        const amounts = [3500, 4200, 2800, 5000, 3100, 4700, 3900, 4500, 3200, 4800];
+
+        function showPopup() {
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+            const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
+
+            const popup = document.getElementById("popup");
+            popup.innerText = `${randomName} from ${randomCountry} just earned $${randomAmount}`;
+
+            // Slide in
+            popup.style.bottom = "20px";
+            popup.style.opacity = 1;
+
+            // Slide out after 3 seconds
+            setTimeout(() => {
+                popup.style.bottom = "-100px";
+                popup.style.opacity = 0;
+            }, 3000);
+        }
+
+        // Show popup every 5-10 seconds randomly
+        setInterval(() => {
+            showPopup();
+        }, Math.floor(Math.random() * 5000) + 9000);
+    </script>
+    <!--End Clients Section-->
+    {% endblock %}

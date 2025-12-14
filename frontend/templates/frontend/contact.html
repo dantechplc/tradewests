@@ -1,0 +1,118 @@
+
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Tradewests | Contact {% endblock %}
+{% block content %}
+
+
+ <!--Page Title-->
+    <section class="page-title">
+        <div class="auto-container">
+            <h1>Contact us</h1>
+        </div>
+    </section>
+
+    <!--Page Info-->
+    <section class="page-info">
+        <div class="auto-container clearfix">
+            <div class="pull-left">
+            	<ul class="bread-crumb clearfix">
+                    <li><a href="index.html">Home</a></li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <div class="share-icon"><a href="#"><span class="icon fa fa-share"></span> Share</a></div>
+            </div>
+        </div>
+    </section>
+    <!--End Page Info-->
+
+    <!--Contact Section-->
+    <section class="contact-section">
+    	<div class="auto-container">
+        	<div class="title-text"> Please fill out the form below to ask a question, leave a statement or to report a technical problem and we will get back to you at our earliest convenience.</div>
+
+            <div class="row clearfix">
+
+                <!--Map Column-->
+                <div class="map-column col-md-5 col-sm-12 col-xs-12">
+					<h2>Our Location</h2>
+					<!--Map Outer-->
+                    <div class="map-outer">
+                        <!--Map Canvas-->
+<div id="osm-map" style="height:380px; width:100%; border-radius:8px;"></div>                    </div>
+                </div>
+
+                <!--Form Column-->
+                <div class="form-column col-md-7 col-sm-12 col-xs-12">
+                	<div class="inner-column">
+                        <h2>Contact Us</h2>
+
+                        <!--Contact Form-->
+                        <div class="contact-form">
+                            <form method="post"  id="contact-form">
+                                {% csrf_token %}
+                                <div class="row clearfix">
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                        <input type="text" name="fname" value="" placeholder="First Name *" required>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                        <input type="email" name="email" value="" placeholder="Email *" required>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                        <input type="text" name="phone" value="" placeholder="Phone *" required>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                        <input type="text" name="subjects" value="" placeholder="Subject *" required>
+                                    </div>
+
+                                    <div class="form-group col-lg-12 col-md-6 col-sm-12">
+                                        <textarea name="message" placeholder="Message *"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-md-12 col-xs-12 text-left">
+                                        <button type="submit" class="theme-btn btn-style-one">Send Message</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                        <!--End Contact Form-->
+
+                    </div>
+                </div>
+            </div>
+
+
+		</div>
+    </section>
+    <!--End Contact Section-->
+ <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Tradewests Office Coordinates - Concord NH
+        const officeLat = 43.223280;
+        const officeLng = -71.537430;
+
+        // Center of New Hampshire state for map zoom
+        const newHampshireCenter = [43.9, -71.5];
+
+        // Initialize map centered on NH
+        const map = L.map('osm-map').setView(newHampshireCenter, 8);
+        // Zoom 8 gives entire NH view; increase to 10–12 for tighter region focus
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add Tradewests marker pinned at office address
+        L.marker([officeLat, officeLng]).addTo(map)
+            .bindPopup("<b>Tradewests</b><br>53 Regional Drive, Suite 200<br>Concord, NH 03301")
+            .openPopup();
+    });
+</script>
+{% endblock %}

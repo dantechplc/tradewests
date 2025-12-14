@@ -1,0 +1,179 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Tradewests | FAQ {% endblock %}
+{% block content %}
+
+<!--Page Title-->
+<section class="page-title">
+    <div class="auto-container">
+        <h1>Question & Answer</h1>
+    </div>
+</section>
+
+<!--Page Info-->
+<section class="page-info">
+    <div class="auto-container clearfix">
+        <div class="pull-left">
+            <ul class="bread-crumb clearfix">
+                <li><a href="index.html">Home</a></li>
+                <li>FAQ</li>
+            </ul>
+        </div>
+        <div class="pull-right">
+            <div class="share-icon">
+                <a href="#"><span class="icon fa fa-share"></span> Share</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Page Info-->
+
+<!--Faq Section-->
+<section class="faq-section sp-three">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <!--Faq Column-->
+            <div class="faq-column col-md-7 col-sm-12 col-xs-12">
+
+                <!--Faq Title-->
+                <div class="faq-title">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="title-text">
+                        Find your question below or submit your own using the form.
+                    </div>
+                </div>
+
+                <!--Accordion Box-->
+                <div class="accordion-box">
+
+                    <!--Single Accordion-->
+                    <div class="accordion animated out" data-delay="0" data-animation="fadeInUp">
+                        <div class="acc-btn">
+                            <p class="title">How can I benefit by investing with Tradewests?</p>
+                            <div class="toggle-icon">
+                                <span class="plus fa fa-angle-right"></span>
+                                <span class="minus fa fa-angle-down"></span>
+                            </div>
+                        </div>
+                        <div class="acc-content">
+                            <div class="text">
+                                <p>
+                                    Investing with Tradewests gives you access to secure, high-performing
+                                    investment plans managed by experts. Whether you're seeking fast
+                                    returns or long-term growth, our strategies help you earn consistently
+                                    and build financial stability.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Single Accordion-->
+                    <div class="accordion animated out" data-delay="0" data-animation="fadeInUp">
+                        <div class="acc-btn active">
+                            <p class="title">How can I learn or get support while trading or investing?</p>
+                            <div class="toggle-icon">
+                                <i class="plus fa fa-angle-right"></i>
+                                <i class="minus fa fa-angle-down"></i>
+                            </div>
+                        </div>
+                        <div class="acc-content collapsed">
+                            <div class="text">
+                                <p>
+                                    At Tradewests, you don't need prior trading experience. We provide
+                                    simple explanations, real-time updates, and full support to guide you
+                                    through every step. Our team ensures you understand your investment
+                                    and remain confident throughout the process.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Single Accordion-->
+                    <div class="accordion animated out" data-delay="0" data-animation="fadeInUp">
+                        <div class="acc-btn">
+                            <p class="title">What makes Tradewests different from other investment companies?</p>
+                            <div class="toggle-icon">
+                                <i class="plus fa fa-angle-right"></i>
+                                <i class="minus fa fa-angle-down"></i>
+                            </div>
+                        </div>
+                        <div class="acc-content">
+                            <div class="text">
+                                <p>
+                                    Tradewests stands out for transparency, fast payouts, expert-guided
+                                    strategies, and investment plans tailored to every type of investor.
+                                    Our priority is real results, reliability, and long-term client satisfaction.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Single Accordion-->
+                    <div class="accordion animated out" data-delay="0" data-animation="fadeInUp">
+                        <div class="acc-btn">
+                            <p class="title">Do you offer loan programs or financial assistance?</p>
+                            <div class="toggle-icon">
+                                <i class="plus fa fa-angle-right"></i>
+                                <i class="minus fa fa-angle-down"></i>
+                            </div>
+                        </div>
+                        <div class="acc-content">
+                            <div class="text">
+                                <p>
+                                    Yes. We offer special profit-backed loan programs to support eligible
+                                    investors who want to scale. These options provide more financial
+                                    leverage than traditional bank loans, helping you grow faster with
+                                    minimal stress.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--End Accordion Box-->
+
+            </div>
+
+            <!--Form Column-->
+            <div class="form-column col-md-5 col-sm-12 col-xs-12">
+                <div class="form-inner">
+                    <h2>Didn't Find the Answer? <br> Submit Your Question</h2>
+
+                    <!--Faq Form-->
+                    <div class="faq-form">
+                        <form method="post">
+                            <div class="form-group">
+                                <input type="text" name="username" placeholder="Your Name*" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Your Email*" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="subject" placeholder="Subject*">
+                            </div>
+
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Your Question*"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="theme-btn btn-style-one">
+                                    Submit Question
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--End Faq Form-->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--End Faq Section-->
+
+{% endblock %}
