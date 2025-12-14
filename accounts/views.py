@@ -90,7 +90,7 @@ def SignupView(request):
                     email.attach(img)
             email.content_subtype = 'html'
             email.mixed_subtype = 'related'
-            email.send()
+            #email.send()
 
             sweetify.success(request, 'Success!',
                              text='Your verification link has been sent to your email. Please click on the link to activate your account.',
