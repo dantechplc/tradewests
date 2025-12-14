@@ -259,29 +259,30 @@ def client_transactions(request):
                 if not account.first_deposit:
                     try:
                         referral = transaction.user.recommended_by
-                        referral_account = Account.objects.get(user=referral)
-                        bonus = Money(
-                                transaction.amount.amount * Decimal("0.10"),
-                                transaction.amount.currency
-                            )
-                        referral_account.main_balance += bonus
-                        referral_account.save(update_fields=['main_balance'])
-                        account = Account.objects.get(user=transaction.user)
-                        account.first_deposit = True
-                        account.save(update_fields=['first_deposit'])
-                        subject = "🎉 Referral Bonus Earned!"
-                        message = f"""
-                        Dear {referral.first_name},
-            
-                        Congratulations! 🎉 you have earned {bonus} from your referral commission.
-            
-                        Please contact support if you need assistance.
-                        Available balance: {referral_account.main_balance}
-            
-                        Thank you,
-                        Tradewests Admin
-                        """
-                        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [referral.user])
+                        if referral:
+                            referral_account = Account.objects.get(user=referral)
+                            bonus = Money(
+                                    transaction.amount.amount * Decimal("0.10"),
+                                    transaction.amount.currency
+                                )
+                            referral_account.main_balance += bonus
+                            referral_account.save(update_fields=['main_balance'])
+                            account = Account.objects.get(user=transaction.user)
+                            account.first_deposit = True
+                            account.save(update_fields=['first_deposit'])
+                            subject = "🎉 Referral Bonus Earned!"
+                            message = f"""
+                            Dear {referral.first_name},
+                
+                            Congratulations! 🎉 you have earned {bonus} from your referral commission.
+                
+                            Please contact support if you need assistance.
+                            Available balance: {referral_account.main_balance}
+                
+                            Thank you,
+                            Tradewests Admin
+                            """
+                            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [referral.user])
                     except Client.DoesNotExist:
                         pass
 
@@ -412,32 +413,33 @@ def transaction_detail(request, id):
                                            name=transaction.user.first_name, email=transaction.user,
                                            date=transaction.date, balance=account.main_balance)
                 sweetify.success(request, f'{transaction.amount} deposit confirmed!')
-                if not account.first_deposit :
+                if not account.first_deposit:
                     try:
                         referral = transaction.user.recommended_by
-                        referral_account = Account.objects.get(user=referral)
-                        bonus = Money(
-                                transaction.amount.amount * Decimal("0.10"),
-                                transaction.amount.currency
-                            )
-                        referral_account.main_balance += bonus
-                        referral_account.save(update_fields=['main_balance'])
-                        account = Account.objects.get(user=transaction.user)
-                        account.first_deposit = True
-                        account.save(update_fields=['first_deposit'])
-                        subject = "🎉 Referral Bonus Earned!"
-                        message = f"""
-                        Dear {referral.first_name},
-            
-                        Congratulations! 🎉 you have earned {bonus} from your referral commission.
-            
-                        Please contact support if you need assistance.
-                        Available balance: {referral_account.main_balance}
-            
-                        Thank you,
-                        Tradewests Admin
-                        """
-                        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [referral.user])
+                        if referral:
+                            referral_account = Account.objects.get(user=referral)
+                            bonus = Money(
+                                    transaction.amount.amount * Decimal("0.10"),
+                                    transaction.amount.currency
+                                )
+                            referral_account.main_balance += bonus
+                            referral_account.save(update_fields=['main_balance'])
+                            account = Account.objects.get(user=transaction.user)
+                            account.first_deposit = True
+                            account.save(update_fields=['first_deposit'])
+                            subject = "🎉 Referral Bonus Earned!"
+                            message = f"""
+                            Dear {referral.first_name},
+                
+                            Congratulations! 🎉 you have earned {bonus} from your referral commission.
+                
+                            Please contact support if you need assistance.
+                            Available balance: {referral_account.main_balance}
+                
+                            Thank you,
+                            Tradewests Admin
+                            """
+                            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [referral.user])
                     except Client.DoesNotExist:
                         pass
 
