@@ -23,13 +23,13 @@ CSRF_COOKIE_SECURE = True
 CORS_ALLOWED_ORIGINS = [
     "https://tradewests.com",
     "https://www.tradewests.com",
-    "http://16.171.140.202",
+    "http://16.16.183.63",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://tradewests.com",
     "https://www.tradewests.com",
-    "http://16.171.140.202",
+    "http://16.16.183.63",
 ]
 
 STATIC_URL = '/static/'
