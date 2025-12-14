@@ -10,7 +10,7 @@
         <div class="row mb-4">
             <div class="col-12 text-center">
                 <h3 class="font-weight-bold">Investment Plans</h3>
-                <p>Select a category to view available plans</p>
+                <p class="text-muted">Select a category to view available plans</p>
             </div>
         </div>
 
@@ -18,11 +18,11 @@
         <div class="row mb-4">
             <div class="col-12 text-center">
                 {% for category in categories %}
-                    <button
-                        class="category-toggle {% if forloop.first %}active{% endif %}"
-                        data-target="cat-{{ category.id }}">
-                        {{ category.name }}
-                    </button>
+                <button
+                    class="category-toggle {% if forloop.first %}active{% endif %}"
+                    data-target="cat-{{ category.id }}">
+                    {{ category.name }}
+                </button>
                 {% endfor %}
             </div>
         </div>
@@ -33,45 +33,80 @@
              id="cat-{{ category.id }}"
              {% if not forloop.first %}style="display:none;"{% endif %}>
 
+            <!-- 🔥 PROMO FIRST -->
             {% for investment in investments %}
-                {% if investment.category_id == category.id %}
+                {% if investment.category_id == category.id and investment.is_promo %}
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                    <div class="iq-card investment-card {% if investment.is_promo %}promo{% endif %}">
+                    <div class="iq-card investment-card promo">
                         <div class="iq-card-body text-center rounded position-relative">
 
-                            {% if investment.is_promo %}
-                                <div class="promo-badge">🔥 PROMO</div>
+                            <div class="promo-badge">🔥 PROMO</div>
+
+                            {% if investment.image %}
+                            <div class="mb-3">
+                                <img src="{{ investment.image.url }}"
+                                     width="90" height="90"
+                                     style="object-fit:contain;">
+                            </div>
                             {% endif %}
+
+                            <h4 class="text-uppercase font-weight-bold text-white">
+                                {{ investment.name }}
+                            </h4>
 
                             <form method="post">
                                 {% csrf_token %}
-
-                                {% if investment.image %}
-                                <div class="mb-3">
-                                    <img src="{{ investment.image.url }}"
-                                         width="90"
-                                         height="90"
-                                         style="object-fit:contain;">
-                                </div>
-                                {% endif %}
-
-                                <h4 class="text-uppercase font-weight-bold text-white">
-                                    {{ investment.name }}
-                                </h4>
-
                                 <input type="hidden" name="investment_name" value="{{ investment.name }}">
 
-                            <ul class=" list-unstyled mb-4 text-white text-left benefits">
+                                <ul class="list-unstyled mb-4 text-white text-left benefits">
+                                    {% for benefit in investment.benefits.all %}
+                                        <li class="font-weight-bold">{{ benefit.name }}</li>
+                                    {% endfor %}
+                                </ul>
 
-                                {% for benefit in investment.benefits.all %}
-                                    <li class="font-weight-bold">{{ benefit.name }}</li>
-                                {% endfor %}
-                            </ul>
-                                <button type="submit"
-                                        class="btn select-btn {% if investment.is_promo %}promo-btn{% endif %}">
+                                <button type="submit" class="btn select-btn promo-btn">
+                                    Select Promo Plan
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+
+            <!-- ✅ NORMAL PLANS -->
+            {% for investment in investments %}
+                {% if investment.category_id == category.id and not investment.is_promo %}
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="iq-card investment-card">
+                        <div class="iq-card-body text-center rounded">
+
+                            {% if investment.image %}
+                            <div class="mb-3">
+                                <img src="{{ investment.image.url }}"
+                                     width="90" height="90"
+                                     style="object-fit:contain;">
+                            </div>
+                            {% endif %}
+
+                            <h4 class="text-uppercase font-weight-bold text-white">
+                                {{ investment.name }}
+                            </h4>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="investment_name" value="{{ investment.name }}">
+
+                                <ul class="list-unstyled mb-4 text-white text-left benefits">
+                                    {% for benefit in investment.benefits.all %}
+                                        <li class="font-weight-bold">{{ benefit.name }}</li>
+                                    {% endfor %}
+                                </ul>
+
+                                <button type="submit" class="btn select-btn">
                                     Select Plan
                                 </button>
-
                             </form>
 
                         </div>
@@ -113,55 +148,58 @@ document.addEventListener("DOMContentLoaded", function () {
     background:#1b2a3a;
     color:white;
     border:none;
-    padding:10px 22px;
+    padding:12px 26px;
     margin:5px;
-    border-radius:25px;
+    border-radius:30px;
     cursor:pointer;
     font-weight:bold;
-    transition:all 0.3s;
+    transition:all 0.3s ease;
 }
 .category-toggle.active {
     background:#471396;
 }
 
-/* 📦 Base card */
+/* 📦 Cards */
 .investment-card {
     background:#1b2a3a;
-    border-radius:14px;
+    border-radius:16px;
     transition:all 0.3s ease;
+    height:100%;
 }
 .investment-card:hover {
-    transform:translateY(-6px);
-    box-shadow:0 12px 30px rgba(0,0,0,0.25);
+    transform:translateY(-8px);
+    box-shadow:0 14px 32px rgba(0,0,0,0.3);
 }
 
-/* 🔥 Promo highlight */
+/* 🔥 Promo card */
 .investment-card.promo {
     background:linear-gradient(135deg,#ff416c,#ff4b2b);
-    border:2px solid rgba(255,255,255,0.8);
+    border:2px solid rgba(255,255,255,0.9);
 }
 
 /* 🎀 Promo ribbon */
 .promo-badge {
     position:absolute;
-    top:-10px;
-    right:-10px;
-    background:#fff;
+    top:-12px;
+    right:-12px;
+    background:white;
     color:#ff416c;
-    font-weight:800;
-    padding:6px 14px;
-    border-radius:20px;
+    font-weight:900;
+    padding:6px 16px;
+    border-radius:25px;
     font-size:12px;
-    transform:rotate(12deg);
-    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    transform:rotate(14deg);
+    box-shadow:0 6px 12px rgba(0,0,0,0.35);
 }
 
 /* ✅ Benefits */
 .benefits li {
-    margin-bottom:6px;
+    margin-bottom:8px;
+    display:flex;
+    gap:6px;
 }
 .benefits li::before {
-    content:"✔ ";
+    content:"✔";
     color:#7cffcb;
     font-weight:bold;
 }
@@ -169,19 +207,19 @@ document.addEventListener("DOMContentLoaded", function () {
 /* 🚀 Buttons */
 .select-btn {
     width:100%;
-    padding:12px;
-    border-radius:25px;
+    padding:14px;
+    border-radius:30px;
     border:none;
     font-weight:bold;
     background:#471396;
     color:white;
-    transition:all 0.3s;
+    transition:all 0.3s ease;
 }
 .select-btn:hover {
     background:#5f2de0;
 }
 
-/* 🔥 Promo button pop */
+/* 🔥 Promo button */
 .promo-btn {
     background:#fff;
     color:#ff416c;

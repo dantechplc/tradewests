@@ -194,7 +194,7 @@
                         </figure>
                         <div class="content">
                             <div class="icon-box"><span class="icon flaticon-world-grid"></span></div>
-                            <h3><a href="services-single.html">Insurance Consulting</a></h3>
+                            <h3><a href="#">Insurance Consulting</a></h3>
                             <div class="text">With our insurance consulting services, we help insurers drive operational efficiency, and increase profitability.</div>
                         </div>
 
@@ -368,7 +368,7 @@
         <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
             <span class="icon flaticon-investment">&#128176;</span>
         </div>
-        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Investments</a></h3>
+        <h3><a href="#" style="text-decoration: none; color: #0d1b2a;">Investments</a></h3>
         <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
             Tradewests provides tailored investment portfolios designed to maximize returns while minimizing risks.
             We focus on diversified strategies across stocks, bonds, ETFs, and emerging markets to grow your wealth.
@@ -382,7 +382,7 @@
         <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
             <span class="icon flaticon-trading">&#128200;</span>
         </div>
-        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Trading</a></h3>
+        <h3><a href="#" style="text-decoration: none; color: #0d1b2a;">Trading</a></h3>
         <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
             Our trading team leverages cutting-edge platforms to execute stock, forex, and cryptocurrency trades efficiently.
             We provide real-time insights, risk management tools, and personalized strategies for every trader.
@@ -396,7 +396,7 @@
         <div class="icon-box" style="font-size: 40px; color: #ff214f; margin-bottom: 15px;">
             <span class="icon flaticon-analysis">&#128202;</span>
         </div>
-        <h3><a href="services-single.html" style="text-decoration: none; color: #0d1b2a;">Market Analysis</a></h3>
+        <h3><a href="#" style="text-decoration: none; color: #0d1b2a;">Market Analysis</a></h3>
         <div class="text" style="margin-top: 10px; color: #555; font-size: 15px;">
             We provide detailed market research and analytics to help investors make informed decisions.
             Our reports cover trends, forecasts, and opportunities across global markets for smarter investments.
@@ -479,7 +479,7 @@
                             <div class="icon-box">
                                 <span class="icon flaticon-monitor"></span>
                             </div>
-                            <h3><a href="services-single.html">Portfolio Management</a></h3>
+                            <h3><a href="#">Portfolio Management</a></h3>
                             <div class="text">
                                 We create tailored investment portfolios that maximize returns while minimizing risk for our clients.
                             </div>
@@ -491,7 +491,7 @@
                             <div class="icon-box">
                                 <span class="icon flaticon-business"></span>
                             </div>
-                            <h3><a href="services-single.html">Market Analysis</a></h3>
+                            <h3><a href="#">Market Analysis</a></h3>
                             <div class="text">
                                 In-depth market research and analytics to help investors make informed decisions in stocks, forex, and crypto.
                             </div>
@@ -503,7 +503,7 @@
                             <div class="icon-box">
                                 <span class="icon flaticon-shapes"></span>
                             </div>
-                            <h3><a href="services-single.html">Trading Strategies</a></h3>
+                            <h3><a href="#">Trading Strategies</a></h3>
                             <div class="text">
                                 Expert trading strategies across multiple markets, designed to optimize profits and minimize risk.
                             </div>
@@ -515,7 +515,7 @@
                             <div class="icon-box">
                                 <span class="icon flaticon-line-chart"></span>
                             </div>
-                            <h3><a href="services-single.html">Wealth Planning</a></h3>
+                            <h3><a href="#">Wealth Planning</a></h3>
                             <div class="text">
                                 Comprehensive wealth planning solutions to help clients grow, protect, and manage their financial assets effectively.
                             </div>
@@ -608,18 +608,25 @@
 <section class="pricing-section sp-one" style="background:#0d1b2a; color:white; padding:80px 0;">
     <div class="auto-container">
 
+        <!-- TITLE -->
         <div class="sec-title light centered">
             <h2>Investment Plans</h2>
         </div>
 
-        <!-- 🔥 DYNAMIC TOGGLES -->
+        <!-- 🔥 CATEGORY TOGGLES -->
         <div style="text-align:center; margin-bottom:40px;">
             {% for category in categories %}
-            <button class="plan-toggle {% if forloop.first %}active{% endif %}"
-                    data-plan="cat-{{ category.id }}"
-                    style="background:{% if forloop.first %}#471396{% else %}#1b2a3a{% endif %};
-                           color:white; border:none; padding:12px 25px; margin:5px;
-                           border-radius:25px; cursor:pointer; font-weight:bold;">
+            <button
+                class="plan-toggle {% if forloop.first %}active{% endif %}"
+                data-plan="cat-{{ category.id }}"
+                style="background:{% if forloop.first %}#471396{% else %}#1b2a3a{% endif %};
+                       color:white;
+                       border:none;
+                       padding:12px 25px;
+                       margin:5px;
+                       border-radius:25px;
+                       cursor:pointer;
+                       font-weight:bold;">
                 {{ category.name }}
             </button>
             {% endfor %}
@@ -631,33 +638,65 @@
             {% for category in categories %}
             <div class="plan-group {% if forloop.first %}active{% endif %}" id="cat-{{ category.id }}">
                 <div class="plan-wrapper">
-                    {% for investment in investments %}
-                        {% if investment.category_id == category.id %}
-                        <div class="plan-card {% if investment.is_promo %}promo{% endif %}">
 
-                            {% if investment.is_promo %}
-                            <div class="promo-ribbon">🔥 Promo</div>
-                            {% endif %}
+                    <!-- 🔥 PROMO FIRST -->
+                    {% for investment in investments %}
+                        {% if investment.category_id == category.id and investment.is_promo %}
+                        <div class="plan-card promo">
+
+                            <div class="promo-ribbon">🔥 PROMO</div>
 
                             {% if investment.image %}
                             <div class="icon">
-                                <img src="{{ investment.image.url }}" alt="{{ investment.name }}" style="width:50px;height:50px;object-fit:contain;">
+                                <img src="{{ investment.image.url }}"
+                                     alt="{{ investment.name }}"
+                                     style="width:50px;height:50px;object-fit:contain;">
                             </div>
                             {% endif %}
 
                             <h3 class="plan-title">{{ investment.name }}</h3>
 
                             <ul class="benefits">
-
                                 {% for benefit in investment.benefits.all %}
                                     <li class="font-weight-bold">{{ benefit.name }}</li>
                                 {% endfor %}
                             </ul>
 
-                            <a href="{% url 'accounts:login' %}" class="invest-btn">Invest Now</a>
+                            <a href="{% url 'accounts:login' %}" class="invest-btn promo-btn">
+                                View Promo Plan
+                            </a>
                         </div>
                         {% endif %}
                     {% endfor %}
+
+                    <!-- ✅ NORMAL PLANS -->
+                    {% for investment in investments %}
+                        {% if investment.category_id == category.id and not investment.is_promo %}
+                        <div class="plan-card">
+
+                            {% if investment.image %}
+                            <div class="icon">
+                                <img src="{{ investment.image.url }}"
+                                     alt="{{ investment.name }}"
+                                     style="width:50px;height:50px;object-fit:contain;">
+                            </div>
+                            {% endif %}
+
+                            <h3 class="plan-title">{{ investment.name }}</h3>
+
+                            <ul class="benefits">
+                                {% for benefit in investment.benefits.all %}
+                                    <li class="font-weight-bold">{{ benefit.name }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <a href="{% url 'accounts:login' %}" class="invest-btn">
+                                Invest Now
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
                 </div>
             </div>
             {% endfor %}
@@ -665,6 +704,7 @@
         </div>
     </div>
 </section>
+
 
 <style>
 .plan-group { display: none; }

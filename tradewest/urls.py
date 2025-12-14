@@ -4,11 +4,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
-#from frontend.sitemaps import StaticViewSitemap
+from frontend.sitemaps import StaticViewSitemap
 
-# sitemaps = {
-#     'static': StaticViewSitemap
-# }
+sitemaps = {
+    'static': StaticViewSitemap
+}
 
 
 urlpatterns = [
@@ -19,7 +19,7 @@ urlpatterns = [
 
     path("transaction/", include(("transaction.urls", "transaction"), namespace="transaction")),
     path('', include('frontend.urls', namespace='frontend') ),
-    #path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemaps'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemaps'),
 ]
 
 if settings.DEBUG:
