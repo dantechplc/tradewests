@@ -12,7 +12,7 @@ DEFAULT_FROM_EMAIL = 'Tradewests<support@tradewests.com>'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'support@tradewests.com'
-EMAIL_HOST_PASSWORD = 'Tr@dewest1212'
+EMAIL_HOST_PASSWORD = 'Tr@dewests1212'
 
 # Security
 SECURE_SSL_REDIRECT = True
