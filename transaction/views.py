@@ -148,7 +148,7 @@ def investment(request):
 
 
 class InvestPreview(TransactionCreateMixin):
-    success_url = reverse_lazy('transaction:transactions')
+    success_url = reverse_lazy('transaction:portfolio')
     form_class = InvestmentForm
     title = 'Investment'
     template_name = 'transaction/dsh/dashboard/investment_preview.html'

@@ -2,7 +2,7 @@ import os
 
 from .settings import *
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ["16.16.183.63", "tradewests.com", "www.tradewests.com", "*"]
 
 
