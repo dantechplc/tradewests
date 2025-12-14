@@ -3,7 +3,7 @@ import os
 from .settings import *
 
 DEBUG = True
-ALLOWED_HOSTS = ["16.16.183.63", "tradewests.com", "www.tradewests.com"]
+ALLOWED_HOSTS = ["16.16.183.63", "tradewests.com", "www.tradewests.com", "*"]
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
