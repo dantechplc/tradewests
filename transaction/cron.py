@@ -1,6 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.db import transaction
 from django.utils import timezone
+from djmoney.money import Money
 
 from accounts.models import Investment_profile, Client, Account, Investment, CompanyProfile
 from transaction import EmailSender
@@ -114,7 +115,11 @@ def investment_expired_check():
             account_client = Account.objects.get(user=account_user)
 
             if earned < expected:
-                difference = expected - earned
+                difference =  Money(
+                                    expected.amount - earned.amount,
+                                    earned.amount.currency
+                                )
+
 
                 print(
                         f"⚠ Correcting ROI for Investment {investment.id}: "
