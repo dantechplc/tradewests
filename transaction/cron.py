@@ -151,7 +151,7 @@ def investment_expired_check():
             mail_subject = "Expired Investment"
             to_email = str(email)
             message1 =f"""
-                Hello Admin user with email {account_user} investment of {investment.amount_invested} has expired
+                Hello Admin, the user with email {account_user} investment of {investment.amount_invested} has expired
                 and has earned {investment.amount_earned}
             
                 """
