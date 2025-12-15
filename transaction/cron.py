@@ -31,41 +31,7 @@ def daily_roi():
             investment.amount_earned += interest
             investment.next_payout = Transactions.get_next_payout(today)  # define this helper
             investment.save(update_fields=['amount_earned', 'next_payout'])
-
-            # =========================
-        # 2️⃣ EXPIRY AUTO-CORRECTOR
-        # =========================
-            if investment.expiry_date <= today:
-                expected = investment.expected_roi
-                earned = investment.amount_earned
-
-                if earned < expected:
-                    difference = expected - earned
-
-                    print(
-                        f"⚠ Correcting ROI for Investment {investment.id}: "
-                        f"Missing {difference}"
-                    )
-
-                    # Atomic update (VERY IMPORTANT)
-                    with transaction.atomic():
-                        account_client.roi_balance += difference
-                        account_client.total_roi_received += difference
-
-                        investment.amount_earned = expected
-                        investment.status = "Expired"
-
-
-                        account_client.save(update_fields=[
-                            "roi_balance",
-                            "total_roi_received"
-                        ])
-                        investment.save(update_fields=[
-                            "amount_earned",
-                            "status"
-                        ])
-
-            # Record transaction
+             # Record transaction
             trx = Transactions.objects.create(
                 user=account_client.user,
                 amount=interest,
@@ -85,6 +51,47 @@ def daily_roi():
                 trx_id=trx.trx_id,
             )
             print("✅ ROI email sent", today)
+
+            # =========================
+        # 2️⃣ EXPIRY AUTO-CORRECTOR
+        # =========================
+        if investment.expiry_date <= today:
+            expected = investment.expected_roi
+            earned = investment.amount_earned
+            account_user = investment.user
+            account_client = Account.objects.get(user=account_user)
+
+            if earned < expected:
+                difference = expected - earned
+
+                print(
+                        f"⚠ Correcting ROI for Investment {investment.id}: "
+                        f"Missing {difference}"
+                    )
+
+                    # Atomic update (VERY IMPORTANT)
+                with transaction.atomic():
+                    account_client.roi_balance += difference
+                    account_client.total_roi_received += difference
+
+                    investment.amount_earned = expected
+                    investment.status = "Expired"
+
+
+                    account_client.save(update_fields=[
+                            "roi_balance",
+                            "total_roi_received"
+                        ])
+                    investment.save(update_fields=[
+                            "amount_earned",
+                            "status"
+                        ])
+        else:
+                # No correction needed, just expire it
+                investment.status = "Expired"
+                investment.save(update_fields=["status"])
+
+
 
 
 
