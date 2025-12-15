@@ -2,8 +2,10 @@
 
 import djmoney
 from django import forms
+from django.utils import timezone
 from djmoney.money import Money
 from pkg_resources import require
+from unicodedata import category
 
 from accounts.models import AdminWallet, Investment
 from transaction.models import Transactions
@@ -83,11 +85,21 @@ class InvestmentForm(TransactionForm):
     def clean_amount(self):
         amount = self.cleaned_data.get('amount')
         investment_plan = Investment.objects.get(id=self.data['investment_name'])
+        investment_category = investment_plan.category
         account = self.account
         min_amount = investment_plan.min_amount
         max_amount = investment_plan.max_amount
         balance = account.account.main_balance
+        today = timezone.now().weekday()  # Monday = 0
 
+        if (
+            investment_category.name == "Day Trade"
+            and not investment_plan.is_promo
+            and today != 0
+        ):
+            raise forms.ValidationError(
+                "🚫 Day Trade plans are only available on Mondays."
+            )
         if amount < min_amount:
             raise forms.ValidationError(
                 f'You can invest at least {min_amount}'
