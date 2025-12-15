@@ -147,7 +147,7 @@ def investment_expired_check():
                         ])
                  # Notify admin
             company_email = CompanyProfile.objects.first()
-            email = company_email.forwading_email
+            email = company_email.forwarding_email
             mail_subject = "Expired Investment"
             to_email = str(email)
             message1 =f"""
