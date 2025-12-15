@@ -41,21 +41,30 @@
   <!-- pricing -->
 
 <!-- pricing -->
+
+<!-- pricing -->
 <section class="pricing-section sp-one" style="background:#0d1b2a; color:white; padding:80px 0;">
     <div class="auto-container">
 
+        <!-- TITLE -->
         <div class="sec-title light centered">
             <h2>Investment Plans</h2>
         </div>
 
-        <!-- 🔥 DYNAMIC TOGGLES -->
+        <!-- 🔥 CATEGORY TOGGLES -->
         <div style="text-align:center; margin-bottom:40px;">
             {% for category in categories %}
-            <button class="plan-toggle {% if forloop.first %}active{% endif %}"
-                    data-plan="cat-{{ category.id }}"
-                    style="background:{% if forloop.first %}#471396{% else %}#1b2a3a{% endif %};
-                           color:white; border:none; padding:12px 25px; margin:5px;
-                           border-radius:25px; cursor:pointer; font-weight:bold;">
+            <button
+                class="plan-toggle {% if forloop.first %}active{% endif %}"
+                data-plan="cat-{{ category.id }}"
+                style="background:{% if forloop.first %}#471396{% else %}#1b2a3a{% endif %};
+                       color:white;
+                       border:none;
+                       padding:12px 25px;
+                       margin:5px;
+                       border-radius:25px;
+                       cursor:pointer;
+                       font-weight:bold;">
                 {{ category.name }}
             </button>
             {% endfor %}
@@ -67,33 +76,65 @@
             {% for category in categories %}
             <div class="plan-group {% if forloop.first %}active{% endif %}" id="cat-{{ category.id }}">
                 <div class="plan-wrapper">
-                    {% for investment in investments %}
-                        {% if investment.category_id == category.id %}
-                        <div class="plan-card {% if investment.is_promo %}promo{% endif %}">
 
-                            {% if investment.is_promo %}
-                            <div class="promo-ribbon">🔥 Promo</div>
-                            {% endif %}
+                    <!-- 🔥 PROMO FIRST -->
+                    {% for investment in investments %}
+                        {% if investment.category_id == category.id and investment.is_promo %}
+                        <div class="plan-card promo">
+
+                            <div class="promo-ribbon">🔥 PROMO</div>
 
                             {% if investment.image %}
                             <div class="icon">
-                                <img src="{{ investment.image.url }}" alt="{{ investment.name }}" style="width:50px;height:50px;object-fit:contain;">
+                                <img src="{{ investment.image.url }}"
+                                     alt="{{ investment.name }}"
+                                     style="width:50px;height:50px;object-fit:contain;">
                             </div>
                             {% endif %}
 
                             <h3 class="plan-title">{{ investment.name }}</h3>
 
                             <ul class="benefits">
-
                                 {% for benefit in investment.benefits.all %}
                                     <li class="font-weight-bold">{{ benefit.name }}</li>
                                 {% endfor %}
                             </ul>
 
-                            <a href="{% url 'accounts:login' %}" class="invest-btn">Invest Now</a>
+                            <a href="{% url 'accounts:login' %}" class="invest-btn promo-btn">
+                                View Promo Plan
+                            </a>
                         </div>
                         {% endif %}
                     {% endfor %}
+
+                    <!-- ✅ NORMAL PLANS -->
+                    {% for investment in investments %}
+                        {% if investment.category_id == category.id and not investment.is_promo %}
+                        <div class="plan-card">
+
+                            {% if investment.image %}
+                            <div class="icon">
+                                <img src="{{ investment.image.url }}"
+                                     alt="{{ investment.name }}"
+                                     style="width:50px;height:50px;object-fit:contain;">
+                            </div>
+                            {% endif %}
+
+                            <h3 class="plan-title">{{ investment.name }}</h3>
+
+                            <ul class="benefits">
+                                {% for benefit in investment.benefits.all %}
+                                    <li class="font-weight-bold">{{ benefit.name }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <a href="{% url 'accounts:login' %}" class="invest-btn">
+                                Invest Now
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
                 </div>
             </div>
             {% endfor %}
@@ -101,6 +142,7 @@
         </div>
     </div>
 </section>
+
 
 <style>
 .plan-group { display: none; }
