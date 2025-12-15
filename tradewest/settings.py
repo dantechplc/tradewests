@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -135,7 +135,7 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backend.CaseInsensitiveModelBackend'
 ]
 AUTH_USER_MODEL = 'accounts.User'
-#LOGIN_REDIRECT_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:login'
 # STORAGES = {
 #     "default": {
 #         "BACKEND": "django.core.files.storage.FileSystemStorage",
