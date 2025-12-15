@@ -117,7 +117,7 @@ def investment_expired_check():
             if earned < expected:
                 difference =  Money(
                                     expected.amount - earned.amount,
-                                    earned.amount.currency
+                                    earned.currency
                                 )
 
 
