@@ -12,7 +12,7 @@ sitemaps = {
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('dantech/', admin.site.urls),
     path("account/", include(("accounts.urls", "accounts"), namespace="accounts")),
     # include staff-only urls under a prefix
     path("boss/", include("accounts.boss_urls",)),

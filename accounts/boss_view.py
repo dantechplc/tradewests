@@ -50,7 +50,7 @@ def dashboard(request):
     recent_withdrawals = recent_withdrawals[:5]
     recent_payments = recent_payments[:5]
     recent_clients = Client.objects.order_by('-date_joined')[:5]  # get latest 5
-    recent_client = reversed(recent_clients)  # display oldest first
+    #recent_client = reversed(recent_clients)  # display oldest first
 
 
     context = {
@@ -62,7 +62,7 @@ def dashboard(request):
         "kyc_unverified": kyc_unverified,
         "recent_withdrawals": recent_withdrawals,
         "recent_payments": recent_payments,
-        "recent_clients": recent_client,
+        "recent_clients": recent_clients,
         'navbar':'dashboard',
     }
     return render(request, 'accounts/boss/dashboard.html', context)
