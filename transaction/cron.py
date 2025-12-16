@@ -123,4 +123,51 @@ def investment_expired_check():
 
 
 
+import os
+import zipfile
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.utils import timezone
+
+
+def email_database_backup():
+    """
+    Daily database backup cron:
+    - Zips db.sqlite3
+    - Emails it as attachment
+    - Deletes zip after sending
+    """
+
+    try:
+        BASE_DIR = settings.BASE_DIR
+        today = timezone.now().strftime("%Y-%m-%d")
+
+        db_path = os.path.join(BASE_DIR, "db.sqlite3")
+        backup_dir = os.path.join(BASE_DIR, "backups")
+        os.makedirs(backup_dir, exist_ok=True)
+
+        zip_path = os.path.join(backup_dir, f"db_backup_{today}.zip")
+
+        # 🔹 ZIP DATABASE
+        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+            zipf.write(db_path, "db.sqlite3")
+
+        # 🔹 SEND EMAIL
+        email = EmailMessage(
+            subject=f"Tradewests Database Backup - {today}",
+            body="Attached is the automated database backup.",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=["weststrade@gmail.com"],  # change if needed
+        )
+
+        email.attach_file(zip_path)
+        email.send(fail_silently=False)
+
+        # 🔹 CLEAN UP ZIP FILE
+        os.remove(zip_path)
+
+        print("✅ Database backup emailed successfully")
+
+    except Exception as e:
+        print("❌ Database backup failed:", str(e))
 
