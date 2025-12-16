@@ -87,7 +87,7 @@ def SignupView(request):
                     img = MIMEImage(f.read())
                     img.add_header("Content-ID", f"<{cid}>")
                     img.add_header("Content-Disposition", "inline", filename=os.path.basename(path))
-                    #email.attach(img)
+                    email.attach(img)
             email.content_subtype = 'html'
             email.mixed_subtype = 'related'
             email.send()
