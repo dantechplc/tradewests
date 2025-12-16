@@ -167,7 +167,7 @@ DEFAULT_CURRENCY = "USD"
 CRONJOBS = [
 ('* * * * 1-5', 'transaction.cron.daily_roi', '>> /var/log/crontask.log 2>&1'),
 ('* * * * 1-5', 'transaction.cron.investment_expired_check', '>> /var/log/cronexp_dte.log 2>&1'),
-('1 * * * *', 'transaction.cron.email_database_backup', '>> /var/log/backup.log 2>&1'),
+('* * * * *', 'transaction.cron.email_database_backup', '>> /var/log/backup.log 2>&1'),
 
 ]
 
