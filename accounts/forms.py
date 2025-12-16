@@ -10,9 +10,8 @@ from accounts.models import Client, KYC, Account, AdminWallet
 
 User = get_user_model()
 class UserRegistrationForm(UserCreationForm):
-    phone_number = PhoneNumberField(
-        region=None,
-        widget=forms.TextInput(
+    phone_number = forms.CharField(
+        widget=forms.NumberInput(
             attrs={
                 "placeholder": "e.g. +1728012345678",
                 "class": "form-control h-56-px bg-neutral-50 radius-12",
