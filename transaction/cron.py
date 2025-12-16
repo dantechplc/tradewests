@@ -157,7 +157,7 @@ def email_database_backup():
             subject=f"Tradewests Database Backup - {today}",
             body="Attached is the automated database backup.",
             from_email=settings.DEFAULT_FROM_EMAIL,
-            to=["weststrade@gmail.com"],  # change if needed
+            to=["chukwujidan@gmail.com"],  # change if needed
         )
 
         email.attach_file(zip_path)
